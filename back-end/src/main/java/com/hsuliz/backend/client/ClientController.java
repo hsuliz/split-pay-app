@@ -15,20 +15,20 @@ public class ClientController {
 
     private final ClientService clientService;
 
+    @GetMapping("/clients/{id}")
+    public ResponseEntity<Client> getClient(@PathVariable long id) {
+        return new ResponseEntity<>(clientService.getClient(id), HttpStatus.OK);
+    }
+
     @GetMapping("/clients")
     public ResponseEntity<List<Client>> getClients() {
-        return new ResponseEntity<>(
-                clientService.getClients(),
-                HttpStatus.OK
-        );
+        return new ResponseEntity<>(clientService.getClients(), HttpStatus.OK);
     }
 
     @PostMapping("/clients")
     public ResponseEntity<String> addClient(@RequestBody Client client) {
         clientService.saveClient(client);
-        return new ResponseEntity<>(
-                "Client saved!!", HttpStatus.OK
-        );
+        return new ResponseEntity<>("Client saved!!", HttpStatus.OK);
     }
 
 }

@@ -11,6 +11,10 @@ public class ClientService {
 
     private final ClientRepository clientRepository;
 
+    public Client getClient(long id) {
+        return clientRepository.findById(id).orElseThrow(IllegalAccessError::new);
+    }
+
     public List<Client> getClients() {
         return clientRepository.findAll();
     }
