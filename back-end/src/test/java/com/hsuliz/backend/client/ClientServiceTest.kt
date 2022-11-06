@@ -6,7 +6,6 @@ import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito.*
 import org.mockito.junit.jupiter.MockitoExtension
-import kotlin.test.assertEquals
 
 @ExtendWith(MockitoExtension::class)
 internal class ClientServiceTest {
@@ -19,15 +18,21 @@ internal class ClientServiceTest {
 
 
     @Test
-    fun `given client then return client`() {
-        //given
-        val client = Client(1L, "John", "john@gmail.com")
-
-        //when
-        clientService.save(client)
+    fun `saveClient should invoke 1 time`() {
+        //given, when
+        clientService.saveClient(any())
 
         //then
         verify(clientRepository, times(1)).save(any())
+    }
+
+    @Test
+    fun `getClients should invoke 1 time`() {
+        //given, when
+        clientService.clients
+
+        //then
+        verify(clientRepository, times(1)).findAll()
     }
 
 }

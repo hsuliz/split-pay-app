@@ -5,6 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api")
 @CrossOrigin
@@ -13,11 +15,19 @@ public class ClientController {
 
     private final ClientService clientService;
 
-    @PostMapping("/client")
-    public ResponseEntity<String> addClient(@RequestBody Client client) {
-        clientService.save(client);
+    @GetMapping("/clients")
+    public ResponseEntity<List<Client>> getClients() {
         return new ResponseEntity<>(
-                "Client safed!!", HttpStatus.OK
+                clientService.getClients(),
+                HttpStatus.OK
+        );
+    }
+
+    @PostMapping("/clients")
+    public ResponseEntity<String> addClient(@RequestBody Client client) {
+        clientService.saveClient(client);
+        return new ResponseEntity<>(
+                "Client saved!!", HttpStatus.OK
         );
     }
 
