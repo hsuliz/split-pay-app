@@ -1,6 +1,7 @@
 package com.hsuliz.backend.client;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +10,7 @@ import javax.persistence.Id;
 
 @Data
 @Entity
+@NoArgsConstructor
 public class Client {
 
     @Id
@@ -19,4 +21,14 @@ public class Client {
 
     private String email;
 
+    public Client(Long id, String name, String email) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+    }
+
+    public Client(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
 }

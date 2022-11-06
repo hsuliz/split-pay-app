@@ -9,9 +9,8 @@ public class ClientService {
 
     private final ClientRepository clientRepository;
 
-    public void addClient(Client client) {
+    public void save(Client client) {
         clientRepository.save(client);
     }
-
 
 }
