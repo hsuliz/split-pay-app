@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Client} from "../services/Types";
-import ClientService from "../services/ClientService";
+import ClientService from "../services/clientService";
 
 const ClientsList: React.FC = () => {
 

@@ -4,6 +4,7 @@ import "./App.css";
 import React from "react";
 import ClientsList from "./components/ClientsList";
 import LoginComponent from "./components/LoginComponent";
+import AddClient from "./components/AddClient";
 
 const App: React.FC = () => {
     return (
@@ -18,11 +19,10 @@ const App: React.FC = () => {
                             Clients
                         </Link>
                     </li>
-                    {/*#TODO*/}
                     <li className="nav-item">
-                        <div className="nav-link">
+                        <Link to={"/addClient"} className="nav-link">
                             Add
-                        </div>
+                        </Link>
                     </li>
                 </div>
             </nav>
@@ -30,6 +30,7 @@ const App: React.FC = () => {
                 <Routes>
                     <Route path="/" element={<LoginComponent/>}/>
                     <Route path="/clients" element={<ClientsList/>}/>
+                    <Route path="/addClient" element={<AddClient/>}/>
                 </Routes>
             </div>
         </div>
