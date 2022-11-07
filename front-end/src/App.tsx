@@ -3,30 +3,33 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import React from "react";
 import ClientsList from "./components/ClientsList";
+import LoginComponent from "./components/LoginComponent";
 
 const App: React.FC = () => {
     return (
         <div>
             <nav className="navbar navbar-expand navbar-dark bg-dark">
                 <div className="navbar-nav mr-auto">
+                    <a href="/" className="navbar-brand">
+                        HomePage
+                    </a>
                     <li className="nav-item">
                         <Link to={"/clients"} className="nav-link">
                             Clients
                         </Link>
                     </li>
+                    {/*#TODO*/}
                     <li className="nav-item">
-                        <Link to={"/add"} className="nav-link">
+                        <div className="nav-link">
                             Add
-                        </Link>
+                        </div>
                     </li>
                 </div>
             </nav>
             <div className="container mt-3">
                 <Routes>
-                    <Route path="/" element={<ClientsList/>}/>
+                    <Route path="/" element={<LoginComponent/>}/>
                     <Route path="/clients" element={<ClientsList/>}/>
-                    {/*<Route path="/add" element={<AddTutorial/>} />
-                    <Route path="/tutorials/:id" element={<Tutorial/>} />*/}
                 </Routes>
             </div>
         </div>

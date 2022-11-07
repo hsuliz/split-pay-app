@@ -1,8 +1,5 @@
 import requester from "./requester";
-
-type Client = {
-    id: number
-}
+import {Client} from "./Types";
 
 const getClient = (id: number) => {
     return requester.get<Client>(`/clients/${id}`)
@@ -13,8 +10,7 @@ const getClients = () => {
 }
 
 const ClientService = {
-    getClient,
-    getClients
+    getClient, getClients
 }
 
 export default ClientService;
