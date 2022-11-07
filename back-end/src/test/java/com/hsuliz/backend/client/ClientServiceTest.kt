@@ -3,7 +3,6 @@ package com.hsuliz.backend.client
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.InjectMocks
 import org.mockito.Mock
@@ -40,13 +39,13 @@ internal class ClientServiceTest {
     }
 
     @Test
-    fun `getClients shouldn't throw`() {
+    fun `getClients should return a client`() {
         //given
-        var client = Client(1L, "John", "john@gmail.com")
+        val client = Client(1L, "John", "john@gmail.com")
 
         //when
         `when`(clientRepository.findById(1)).thenReturn(Optional.of(client))
-        var actual = clientService.getClient(1L)
+        val actual = clientService.getClient(1L)
 
         // then
         assertThat(actual).isEqualTo(client)
@@ -55,9 +54,6 @@ internal class ClientServiceTest {
     // #TODO
     @Disabled
     fun `getClients should throw`() {
-        //given, when
-        `when`(clientRepository.findById(1)).thenReturn(null)
-        var actual = clientService.getClient(1L)
 
     }
 
