@@ -12,6 +12,7 @@ public class ClientService {
 
     private final ClientRepository clientRepository;
 
+
     public Client getClient(long id) {
         return clientRepository
                 .findById(id)
