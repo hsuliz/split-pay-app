@@ -1,34 +1,40 @@
 package com.hsuliz.backend.client;
 
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/clients")
 @CrossOrigin
 @AllArgsConstructor
 public class ClientController {
 
     private final ClientService clientService;
 
-    @GetMapping("/clients/{id}")
+
+    @GetMapping("/{id}")
     public ResponseEntity<Client> getClient(@PathVariable long id) {
-        return new ResponseEntity<>(clientService.getClient(id), HttpStatus.OK);
+        return ResponseEntity.ok().body(clientService.getClient(id));
     }
 
-    @GetMapping("/clients")
+    @GetMapping
     public ResponseEntity<List<Client>> getClients() {
-        return new ResponseEntity<>(clientService.getClients(), HttpStatus.OK);
+        return ResponseEntity.ok().body(clientService.getClients());
     }
 
-    @PostMapping("/clients")
+    @PostMapping
     public ResponseEntity<String> addClient(@RequestBody Client client) {
         clientService.saveClient(client);
-        return new ResponseEntity<>("Client saved!!", HttpStatus.OK);
+        return ResponseEntity.ok("Client saved!!");
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteClient(@PathVariable long id) {
+        clientService.deleteClient(id);
+        return ResponseEntity.ok("Client deleted");
     }
 
 }

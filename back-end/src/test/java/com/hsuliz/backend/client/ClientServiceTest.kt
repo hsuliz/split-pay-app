@@ -1,6 +1,7 @@
 package com.hsuliz.backend.client
 
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
@@ -52,7 +53,7 @@ internal class ClientServiceTest {
     }
 
     // #TODO
-    @Test
+    @Disabled
     fun `getClients should throw`() {
         //given, when
         `when`(clientRepository.findById(1)).thenReturn(null)

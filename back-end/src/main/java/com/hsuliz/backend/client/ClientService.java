@@ -1,5 +1,6 @@
 package com.hsuliz.backend.client;
 
+import com.hsuliz.backend.client.exception.ClientNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,8 +12,11 @@ public class ClientService {
 
     private final ClientRepository clientRepository;
 
+
     public Client getClient(long id) {
-        return clientRepository.findById(id).orElseThrow(IllegalAccessError::new);
+        return clientRepository
+                .findById(id)
+                .orElseThrow(() -> new ClientNotFoundException(id));
     }
 
     public List<Client> getClients() {
@@ -21,6 +25,10 @@ public class ClientService {
 
     public void saveClient(Client client) {
         clientRepository.save(client);
+    }
+
+    public void deleteClient(long id) {
+        clientRepository.deleteById(id);
     }
 
 }
