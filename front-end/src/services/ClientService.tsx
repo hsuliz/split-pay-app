@@ -9,8 +9,12 @@ const getClients = () => {
     return requester.get<Array<Client>>("/clients")
 }
 
+const postClient = (client: Client) => {
+    return requester.post<Client>("/clients", client)
+}
+
 const ClientService = {
-    getClient, getClients
+    getClient, getClients, postClient
 }
 
 export default ClientService;
