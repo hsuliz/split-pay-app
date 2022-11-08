@@ -10,6 +10,7 @@ const AddClient: React.FC = () => {
     }
 
     const [client, setClient] = useState<Client>(initialTutorialState);
+    const [submitted, setSubmitted] = useState<boolean>(false);
 
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         const {name, value} = event.target;
@@ -29,6 +30,7 @@ const AddClient: React.FC = () => {
                     name: response.data.name,
                     email: response.data.email,
                 });
+                setSubmitted(true);
                 console.log("success");
             })
             .catch((e: Error) => {
@@ -36,42 +38,53 @@ const AddClient: React.FC = () => {
             });
     };
 
+    const newTutorial = () => {
+        setClient(initialTutorialState);
+        setSubmitted(false);
+    };
+
     return (
-        <div className="container">
-            <h3>Add client</h3>
-            <form onSubmit={saveTutorial}>
-
-                <div className="form-group">
-                    <label>Name</label>
-                    <input
-                        type="text"
-                        name="name"
-                        className="form-control"
-                        placeholder="Enter name"
-                        onChange={handleInputChange}
-                        value={client.name}
-                        required
-                    />
+        <div className="submit-form">
+            {submitted ? (
+                <div>
+                    <h4>You submitted successfully!</h4>
+                    <button className="btn btn-success" onClick={newTutorial}>
+                        Add
+                    </button>
                 </div>
+            ) : (
+                <div>
+                    <div className="form-group">
+                        <label htmlFor="title">Title</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="title"
+                            required
+                            value={client.name}
+                            onChange={handleInputChange}
+                            name="name"
+                        />
+                    </div>
 
-                <div className="form-group">
-                    <label>Email</label>
-                    <input
-                        type="text"
-                        name="email"
-                        className="form-control"
-                        placeholder="Enter email"
-                        onChange={handleInputChange}
-                        value={client.email}
-                        required
-                    />
+                    <div className="form-group">
+                        <label htmlFor="description">Description</label>
+                        <input
+                            type="email"
+                            className="form-control"
+                            id="description"
+                            required
+                            value={client.email}
+                            onChange={handleInputChange}
+                            name="email"
+                        />
+                    </div>
+
+                    <button onClick={saveTutorial} className="btn btn-success">
+                        Submit
+                    </button>
                 </div>
-
-                <button className="btn btn-success">
-                    Submit
-                </button>
-
-            </form>
+            )}
         </div>
     );
 
