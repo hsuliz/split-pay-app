@@ -43,6 +43,7 @@ const AddClient: React.FC = () => {
             .catch((e: Error) => {
                 console.log(e);
             });
+
     };
 
     return (
