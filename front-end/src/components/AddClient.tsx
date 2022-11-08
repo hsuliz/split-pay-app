@@ -9,10 +9,9 @@ const AddClient: React.FC = () => {
     const initialTutorialState = {
         name: "",
         email: ""
-    };
+    }
 
     const [client, setClient] = useState<Client>(initialTutorialState);
-    const [submitted, setSubmitted] = useState<boolean>(false);
 
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         const {name, value} = event.target;
@@ -21,7 +20,6 @@ const AddClient: React.FC = () => {
 
     const newTutorial = () => {
         setClient(initialTutorialState);
-        setSubmitted(false);
     };
 
     const saveTutorial = () => {
@@ -37,7 +35,6 @@ const AddClient: React.FC = () => {
                     name: response.data.name,
                     email: response.data.email,
                 });
-                setSubmitted(true);
                 console.log(response.data);
             })
             .catch((e: Error) => {
