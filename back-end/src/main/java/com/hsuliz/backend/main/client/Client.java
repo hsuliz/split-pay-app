@@ -1,4 +1,4 @@
-package com.hsuliz.backend.client;
+package com.hsuliz.backend.main.client;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,4 +31,5 @@ public class Client {
         this.name = name;
         this.email = email;
     }
+
 }

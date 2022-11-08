@@ -1,5 +1,8 @@
 package com.hsuliz.backend.client
 
+import com.hsuliz.backend.main.client.Client
+import com.hsuliz.backend.main.client.ClientRepository
+import com.hsuliz.backend.main.client.ClientService
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
