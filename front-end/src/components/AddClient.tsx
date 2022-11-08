@@ -1,8 +1,6 @@
 import React, {ChangeEvent, useState} from "react";
 import {Client} from "../services/Types";
 import clientService from "../services/clientService";
-import {Button, Container, Form, FormGroup, Input, Label} from "reactstrap";
-import {Link} from "react-router-dom";
 
 const AddClient: React.FC = () => {
 
@@ -16,10 +14,6 @@ const AddClient: React.FC = () => {
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         const {name, value} = event.target;
         setClient({...client, [name]: value});
-    };
-
-    const newTutorial = () => {
-        setClient(initialTutorialState);
     };
 
     const saveTutorial = () => {
@@ -44,20 +38,38 @@ const AddClient: React.FC = () => {
     };
 
     return (
-        <Container>
-            <Form onSubmit={saveTutorial}>
-                <FormGroup>
-                    <Label for="name">Name</Label>
-                    <Input type="text" name="name" id="name" value={client.name || ''}
-                           onChange={handleInputChange} autoComplete="name"/>
-                </FormGroup>
+        <form onSubmit={saveTutorial}>
 
-                <FormGroup>
-                    <Button color="primary" type="submit">Save</Button>{' '}
-                    <Button color="secondary" tag={Link} to="/clients">Cancel</Button>
-                </FormGroup>
-            </Form>
-        </Container>
+            <div className="form-group">
+                <label>Name</label>
+                <input
+                    type="text"
+                    name="name"
+                    className="form-control"
+                    placeholder="Enter name"
+                    onChange={handleInputChange}
+                    value={client.name}
+                    required
+                />
+            </div>
+
+            <div className="form-group">
+                <label>Email</label>
+                <input
+                    type="text"
+                    name="email"
+                    className="form-control"
+                    placeholder="Enter email"
+                    onChange={handleInputChange}
+                    value={client.email}
+                    required
+                />
+            </div>
+
+            <button className="btn btn-success">
+                Submit
+            </button>
+        </form>
     );
 
 }
