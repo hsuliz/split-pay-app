@@ -29,47 +29,50 @@ const AddClient: React.FC = () => {
                     name: response.data.name,
                     email: response.data.email,
                 });
-                console.log(response.data);
+                console.log("success");
             })
             .catch((e: Error) => {
                 console.log(e);
             });
-
     };
 
     return (
-        <form onSubmit={saveTutorial}>
+        <div className="container">
+            <h3>Add client</h3>
+            <form onSubmit={saveTutorial}>
 
-            <div className="form-group">
-                <label>Name</label>
-                <input
-                    type="text"
-                    name="name"
-                    className="form-control"
-                    placeholder="Enter name"
-                    onChange={handleInputChange}
-                    value={client.name}
-                    required
-                />
-            </div>
+                <div className="form-group">
+                    <label>Name</label>
+                    <input
+                        type="text"
+                        name="name"
+                        className="form-control"
+                        placeholder="Enter name"
+                        onChange={handleInputChange}
+                        value={client.name}
+                        required
+                    />
+                </div>
 
-            <div className="form-group">
-                <label>Email</label>
-                <input
-                    type="text"
-                    name="email"
-                    className="form-control"
-                    placeholder="Enter email"
-                    onChange={handleInputChange}
-                    value={client.email}
-                    required
-                />
-            </div>
+                <div className="form-group">
+                    <label>Email</label>
+                    <input
+                        type="text"
+                        name="email"
+                        className="form-control"
+                        placeholder="Enter email"
+                        onChange={handleInputChange}
+                        value={client.email}
+                        required
+                    />
+                </div>
 
-            <button className="btn btn-success">
-                Submit
-            </button>
-        </form>
+                <button className="btn btn-success">
+                    Submit
+                </button>
+
+            </form>
+        </div>
     );
 
 }
