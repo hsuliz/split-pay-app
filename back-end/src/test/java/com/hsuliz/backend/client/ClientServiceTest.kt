@@ -24,12 +24,16 @@ internal class ClientServiceTest {
 
 
     @Test
-    fun `saveClient should invoke 1 time`() {
-        //given, when
-        clientService.saveClient(any())
+    fun `getClient should return a client`() {
+        //given
+        val client = Client(1L, "John", "john@gmail.com")
 
-        //then
-        verify(clientRepository, times(1)).save(any())
+        //when
+        `when`(clientRepository.findById(1)).thenReturn(Optional.of(client))
+        val actual = clientService.getClient(1L)
+
+        // then
+        assertThat(actual).isEqualTo(client)
     }
 
     @Test
@@ -42,16 +46,12 @@ internal class ClientServiceTest {
     }
 
     @Test
-    fun `getClients should return a client`() {
-        //given
-        val client = Client(1L, "John", "john@gmail.com")
+    fun `saveClient should invoke 1 time`() {
+        //given, when
+        clientService.saveClient(any())
 
-        //when
-        `when`(clientRepository.findById(1)).thenReturn(Optional.of(client))
-        val actual = clientService.getClient(1L)
-
-        // then
-        assertThat(actual).isEqualTo(client)
+        //then
+        verify(clientRepository, times(1)).save(any())
     }
 
     // #TODO
