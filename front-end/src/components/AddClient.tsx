@@ -44,7 +44,7 @@ const AddClient: React.FC = () => {
     };
 
     return (
-        <div className="submit-form">
+        <div className="submit-form was-validated">
             {submitted ? (
                 <div>
                     <h4>You submitted successfully!</h4>
@@ -55,28 +55,31 @@ const AddClient: React.FC = () => {
             ) : (
                 <div>
                     <div className="form-group">
-                        <label htmlFor="title">Title</label>
+                        <label htmlFor="name">Name</label>
                         <input
+                            id="name"
                             type="text"
-                            className="form-control"
-                            id="title"
                             required
+                            className="form-control"
                             value={client.name}
                             onChange={handleInputChange}
                             name="name"
+                            placeholder="Enter a name"
                         />
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="description">Description</label>
+                        <label htmlFor="email">Email</label>
                         <input
+                            id="email"
                             type="email"
-                            className="form-control"
-                            id="description"
                             required
+                            className="form-control"
                             value={client.email}
                             onChange={handleInputChange}
                             name="email"
+                            placeholder="Enter a email"
+                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                         />
                     </div>
 
