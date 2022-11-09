@@ -1,19 +1,19 @@
 import React, {useEffect, useState} from "react";
-import {Client} from "../services/Types";
-import ClientService from "../services/ClientService";
+import {Expense} from "../services/Types";
+import ExpenseService from "../services/ExpenseService";
 
 const ExpenseList: React.FC = () => {
 
-    const [clients, setClients] = useState<Array<Client>>([])
+    const [expense, setExpense] = useState<Array<Expense>>([])
 
     useEffect(() => {
-        getClients()
+        getExpenses()
     }, [])
 
-    const getClients = () => {
-        ClientService.getClients()
+    const getExpenses = () => {
+        ExpenseService.getExpenses()
             .then((response: any) => {
-                setClients(response.data);
+                setExpense(response.data);
                 console.log(response.data);
             })
             .catch((e: Error) => {
@@ -23,22 +23,21 @@ const ExpenseList: React.FC = () => {
 
     return (
         <div className="container">
-            <h3>Clients</h3>
+            <h3>Expenses</h3>
             <div className="container">
                 <table className="table">
                     <thead>
                     <tr>
-                        <th>Id</th>
-                        <th>Name</th>
-                        <th>Email</th>
+                        <th>Expense</th>
+                        <th>Price</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {clients.map(client => <tr key={client.id}>
-                        <td>{client.id}</td>
-                        <td>{client.name}</td>
-                        <td>{client.email}</td>
-                    </tr>)}
+                    {expense.map(expense =>
+                        <tr key={expense.id}>
+                            <td>{expense.name}</td>
+                            <td>{expense.price}</td>
+                        </tr>)}
                     </tbody>
                 </table>
             </div>
