@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {Client} from "../services/Types";
-import ClientService from "../services/clientService";
+import ClientService from "../services/ClientService";
 
-const ClientsList: React.FC = () => {
+const ExpenseList: React.FC = () => {
 
     const [clients, setClients] = useState<Array<Client>>([])
 
@@ -46,4 +46,4 @@ const ClientsList: React.FC = () => {
 };
 
 
-export default ClientsList;
+export default ExpenseList;

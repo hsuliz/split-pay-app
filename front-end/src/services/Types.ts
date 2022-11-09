@@ -4,7 +4,10 @@ type Client = {
     email: string
 }
 
-export type {Client};
+type Expense = {
+    id?: number,
+    name: string,
+    price: number
+}
 
-
-
+export type {Client, Expense};

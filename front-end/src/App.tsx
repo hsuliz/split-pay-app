@@ -2,9 +2,9 @@ import {Link, Route, Routes} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import React from "react";
-import ClientsList from "./components/ClientsList";
+import ExpenseList from "./components/ExpenseList";
 import LoginComponent from "./components/LoginComponent";
-import AddClient from "./components/AddClient";
+import AddExpense from "./components/AddExpense";
 
 const App: React.FC = () => {
     return (
@@ -29,8 +29,8 @@ const App: React.FC = () => {
             <div className="container mt-3">
                 <Routes>
                     <Route path="/" element={<LoginComponent/>}/>
-                    <Route path="/clients" element={<ClientsList/>}/>
-                    <Route path="/addClient" element={<AddClient/>}/>
+                    <Route path="/clients" element={<ExpenseList/>}/>
+                    <Route path="/addClient" element={<AddExpense/>}/>
                 </Routes>
             </div>
         </div>

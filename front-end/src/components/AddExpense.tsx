@@ -1,8 +1,8 @@
 import React, {ChangeEvent, useState} from "react";
 import {Client} from "../services/Types";
-import clientService from "../services/clientService";
+import clientService from "../services/ClientService";
 
-const AddClient: React.FC = () => {
+const AddExpense: React.FC = () => {
 
     const initialTutorialState = {
         name: "", email: ""
@@ -86,4 +86,4 @@ const AddClient: React.FC = () => {
 
 }
 
-export default AddClient
+export default AddExpense
