@@ -1,7 +1,7 @@
-package com.hsuliz.backend.client.exception;
+package com.hsuliz.backend.main.client.exception;
 
 public class ClientNotFoundException extends RuntimeException {
     public ClientNotFoundException(long clientId) {
-        super("Client not found on :: " + clientId);
+        super("Client by id not found on : " + clientId);
     }
 }

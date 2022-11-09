@@ -1,4 +1,4 @@
-package com.hsuliz.backend.client;
+package com.hsuliz.backend.main.client;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +34,7 @@ public class ClientController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteClient(@PathVariable long id) {
         clientService.deleteClient(id);
-        return ResponseEntity.ok("Client deleted");
+        return ResponseEntity.ok("Client deleted!!");
     }
 
 }

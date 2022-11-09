@@ -1,6 +1,6 @@
-package com.hsuliz.backend.client;
+package com.hsuliz.backend.main.client;
 
-import com.hsuliz.backend.client.exception.ClientNotFoundException;
+import com.hsuliz.backend.main.client.exception.ClientNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
