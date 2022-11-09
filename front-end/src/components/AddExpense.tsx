@@ -1,31 +1,34 @@
 import React, {ChangeEvent, useState} from "react";
-import {Client} from "../services/Types";
-import clientService from "../services/ClientService";
+import {Expense} from "../services/Types";
+import expenseService from "../services/ExpenseService";
 
 const AddExpense: React.FC = () => {
 
-    const initialTutorialState = {
-        name: "", email: ""
+    const initialExpenseState: Expense = {
+        name: "", price: ""
     }
 
-    const [client, setClient] = useState<Client>(initialTutorialState);
+    const [expense, setExpense] = useState<Expense>(initialExpenseState);
     const [submitted, setSubmitted] = useState<boolean>(false);
 
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         const {name, value} = event.target;
-        setClient({...client, [name]: value});
+        setExpense({...expense, [name]: value});
     };
 
-    const saveTutorial = () => {
+    const saveExpense = () => {
 
         const data = {
-            name: client.name, email: client.email
+            name: expense.name, price: expense.price
         }
 
-        clientService.postClient(data)
+        expenseService.postExpense(data)
+            .then(() => {
+                console.log(data)
+            })
             .then((response: any) => {
-                setClient({
-                    name: response.data.name, email: response.data.email,
+                setExpense({
+                    name: response.data.name, price: response.data.price.parseFloat,
                 });
                 setSubmitted(true);
                 console.log("success");
@@ -37,9 +40,11 @@ const AddExpense: React.FC = () => {
     }
 
     const newTutorial = () => {
-        setClient(initialTutorialState);
+        setExpense(initialExpenseState);
         setSubmitted(false);
     };
+
+    const getDisabled = () => expense.price.length <= 0 || parseFloat(expense.price) <= 0;
 
     return (
         <div className="submit-form was-validated">
@@ -50,35 +55,36 @@ const AddExpense: React.FC = () => {
                 </button>
             </div>) : (<div>
                 <div className="form-group">
-                    <label htmlFor="name">Name</label>
+                    <label htmlFor="expense">Expense</label>
                     <input
-                        id="name"
+                        id="expense"
                         type="text"
                         required
                         className="form-control"
-                        value={client.name}
+                        value={expense.name}
                         onChange={handleInputChange}
                         name="name"
-                        placeholder="Enter a name"
                     />
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="email">Email</label>
+                    <label htmlFor="price">Price</label>
                     <input
-                        id="email"
-                        type="email"
+                        id="price"
+                        type="number"
                         required
                         className="form-control"
-                        value={client.email}
+                        value={expense.price}
                         onChange={handleInputChange}
-                        name="email"
-                        placeholder="Enter a email"
-                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                        name="price"
                     />
                 </div>
 
-                <button onClick={saveTutorial} className="btn btn-success">
+                <button onClick={saveExpense}
+                        disabled={
+                            getDisabled()
+                        }
+                        className="btn btn-success">
                     Submit
                 </button>
             </div>)}

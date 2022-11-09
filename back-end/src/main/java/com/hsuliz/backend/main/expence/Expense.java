@@ -19,6 +19,6 @@ public class Expense {
 
     private String name;
 
-    private Long price;
+    private Float price;
 
 }

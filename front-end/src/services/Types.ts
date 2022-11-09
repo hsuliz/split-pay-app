@@ -7,7 +7,7 @@ type Client = {
 type Expense = {
     id?: number,
     name: string,
-    price: number
+    price: string
 }
 
 export type {Client, Expense};
