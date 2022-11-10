@@ -1,15 +1,15 @@
 package com.hsuliz.backend.main.expence;
 
-import lombok.Data;
+import com.hsuliz.backend.main.client.Client;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-@Data
 @Entity
+@Setter
+@Getter
 @NoArgsConstructor
 public class Expense {
 
@@ -21,4 +21,17 @@ public class Expense {
 
     private Float price;
 
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private Client client;
+
+    @Override
+    public String toString() {
+        return "Expense{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", clientId=" + client.getId() +
+                '}';
+    }
 }

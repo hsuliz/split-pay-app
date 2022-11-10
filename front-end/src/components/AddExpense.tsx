@@ -5,7 +5,7 @@ import expenseService from "../services/ExpenseService";
 const AddExpense: React.FC = () => {
 
     const initialExpenseState: Expense = {
-        name: "", price: ""
+        name: "", price: "", clientId: ""
     }
 
     const [expense, setExpense] = useState<Expense>(initialExpenseState);
@@ -19,7 +19,7 @@ const AddExpense: React.FC = () => {
     const saveExpense = () => {
 
         const data = {
-            name: expense.name, price: expense.price
+            name: expense.name, price: expense.price, clientId: expense.clientId
         }
 
         expenseService.postExpense(data)
@@ -28,7 +28,9 @@ const AddExpense: React.FC = () => {
             })
             .then((response: any) => {
                 setExpense({
-                    name: response.data.name, price: response.data.price.parseFloat,
+                    name: response.data.name,
+                    price: response.data.price.parseFloat,
+                    clientId: response.data.clientId.parseInt
                 });
                 setSubmitted(true);
                 console.log("success");
@@ -54,6 +56,20 @@ const AddExpense: React.FC = () => {
                     Add
                 </button>
             </div>) : (<div>
+
+                <div className="form-group">
+                    <label htmlFor="client-id">Client id</label>
+                    <input
+                        id="client-id"
+                        type="text"
+                        required
+                        className="form-control"
+                        value={expense.clientId}
+                        onChange={handleInputChange}
+                        name="clientId"
+                    />
+                </div>
+
                 <div className="form-group">
                     <label htmlFor="expense">Expense</label>
                     <input

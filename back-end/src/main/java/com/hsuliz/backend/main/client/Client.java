@@ -1,15 +1,17 @@
 package com.hsuliz.backend.main.client;
 
+import com.hsuliz.backend.main.expence.Expense;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
-@Data
 @Entity
+@Setter
+@Getter
 @NoArgsConstructor
 public class Client {
 
@@ -20,6 +22,9 @@ public class Client {
     private String name;
 
     private String email;
+
+    @OneToMany(mappedBy = "client")
+    private List<Expense> expenses;
 
     public Client(Long id, String name, String email) {
         this.id = id;

@@ -8,6 +8,7 @@ type Expense = {
     id?: number,
     name: string,
     price: string
+    clientId: string
 }
 
 export type {Client, Expense};
