@@ -1,5 +1,6 @@
 package com.hsuliz.backend.main.expence;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.hsuliz.backend.main.client.Client;
 import lombok.Getter;
@@ -12,6 +13,7 @@ import javax.persistence.*;
 @Setter
 @Getter
 @NoArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 public class Expense {
 
     @Id
@@ -24,7 +26,7 @@ public class Expense {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "client_id")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonIgnoreProperties(value = {"expenses", "name", "email"})
     private Client client;
 
 }

@@ -1,5 +1,6 @@
 package com.hsuliz.backend.main.client;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.hsuliz.backend.main.expence.Expense;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,7 @@ import java.util.Set;
 @Setter
 @Getter
 @NoArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 public class Client {
 
     @Id
@@ -25,6 +27,7 @@ public class Client {
     private String email;
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnoreProperties(value = { "client" })
     private Set<Expense> expenses = new HashSet<>();
 
     public Client(Long id, String name, String email) {

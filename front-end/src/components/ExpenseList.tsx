@@ -39,6 +39,7 @@ const ExpenseList: React.FC = () => {
                         <tr key={expense.id}>
                             <td>{expense.name}</td>
                             <td>{expense.price}</td>
+                            <td>{expense.client.id}</td>
                         </tr>)}
                     </tbody>
                 </Table>

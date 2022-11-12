@@ -46,7 +46,7 @@ function AddExpense() {
                                 <ErrorMessage name="id" component="span"/>
                                 <Field className="input" name="client.id"/>
 
-                                <button type="submit">Create task</button>
+                                <button type="submit">Add expense</button>
                             </Row>
                         </Form>
                     </Formik>
