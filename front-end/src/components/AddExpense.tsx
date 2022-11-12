@@ -28,12 +28,12 @@ function AddExpense() {
 
     return (
         <Container>
-            <Row>
-                <Card>
-                    <h2 className="text-center">Add expense</h2>
-                    <Card.Body>
-                        <Formik initialValues={initialValues} onSubmit={onSubmitCreate}>
-                            <Form className="form row">
+            <Card>
+                <h2 className="text-center">Add expense</h2>
+                <Card.Body>
+                    <Formik initialValues={initialValues} onSubmit={onSubmitCreate}>
+                        <Form className="form">
+                            <Row>
                                 <label>Expense</label>
                                 <ErrorMessage name="expense" component="span"/>
                                 <Field className="input" name="name"/>
@@ -47,11 +47,11 @@ function AddExpense() {
                                 <Field className="input" name="client.id"/>
 
                                 <button type="submit">Create task</button>
-                            </Form>
-                        </Formik>
-                    </Card.Body>
-                </Card>
-            </Row>
+                            </Row>
+                        </Form>
+                    </Formik>
+                </Card.Body>
+            </Card>
         </Container>
     );
 }
