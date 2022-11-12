@@ -1,5 +1,6 @@
 package com.hsuliz.backend.main.expence;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.hsuliz.backend.main.client.Client;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,9 +22,11 @@ public class Expense {
 
     private Float price;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "client_id")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Client client;
+
 
     @Override
     public String toString() {
@@ -34,4 +37,5 @@ public class Expense {
                 ", clientId=" + client.getId() +
                 '}';
     }
+
 }

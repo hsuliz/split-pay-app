@@ -1,13 +1,14 @@
 package com.hsuliz.backend.main.client;
 
 import com.hsuliz.backend.main.expence.Expense;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Setter
@@ -23,8 +24,8 @@ public class Client {
 
     private String email;
 
-    @OneToMany(mappedBy = "client")
-    private List<Expense> expenses;
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+    private Set<Expense> expenses = new HashSet<>();
 
     public Client(Long id, String name, String email) {
         this.id = id;
