@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Expense} from "../services/Types";
 import ExpenseService from "../services/ExpenseService";
+import {Container, Table} from "react-bootstrap";
 
 const ExpenseList: React.FC = () => {
 
@@ -22,14 +23,15 @@ const ExpenseList: React.FC = () => {
     };
 
     return (
-        <div className="container">
-            <h3>Expenses</h3>
-            <div className="container">
-                <table className="table">
+        <Container>
+            <h2 className="text-center">Expense list</h2>
+            <Container>
+                <Table>
                     <thead>
                     <tr>
                         <th>Expense</th>
                         <th>Price</th>
+                        <th>User</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -37,11 +39,13 @@ const ExpenseList: React.FC = () => {
                         <tr key={expense.id}>
                             <td>{expense.name}</td>
                             <td>{expense.price}</td>
+                            <td>{expense.client.id}</td>
                         </tr>)}
                     </tbody>
-                </table>
-            </div>
-        </div>);
+                </Table>
+            </Container>
+        </Container>
+    )
 };
 
 

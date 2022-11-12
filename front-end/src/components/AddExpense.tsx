@@ -1,95 +1,59 @@
 import React, {ChangeEvent, useState} from "react";
 import {Expense} from "../services/Types";
 import expenseService from "../services/ExpenseService";
+import {Card, Container, Row} from "react-bootstrap";
+import {ErrorMessage, Field, Form, Formik, useFormik} from "formik";
+import {useNavigate} from "react-router-dom";
 
-const AddExpense: React.FC = () => {
+function AddExpense() {
 
-    const initialExpenseState: Expense = {
-        name: "", price: ""
-    }
+    const navigate = useNavigate();
 
-    const [expense, setExpense] = useState<Expense>(initialExpenseState);
-    const [submitted, setSubmitted] = useState<boolean>(false);
-
-    const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const {name, value} = event.target;
-        setExpense({...expense, [name]: value});
+    const initialValues: Expense = {
+        client: {
+            id: ""
+        },
+        name: "",
+        price: ""
     };
 
-    const saveExpense = () => {
-
-        const data = {
-            name: expense.name, price: expense.price
-        }
-
-        expenseService.postExpense(data)
-            .then(() => {
-                console.log(data)
-            })
-            .then((response: any) => {
-                setExpense({
-                    name: response.data.name, price: response.data.price.parseFloat,
-                });
-                setSubmitted(true);
-                console.log("success");
-            })
+    const onSubmitCreate = (data: any) => {
+        console.log(data)
+        expenseService.post(data)
+            .then(() => navigate("/list"))
             .catch((e: Error) => {
                 console.log(e);
             })
-
-    }
-
-    const newTutorial = () => {
-        setExpense(initialExpenseState);
-        setSubmitted(false);
     };
 
-    const getDisabled = () => expense.price.length <= 0 || parseFloat(expense.price) <= 0;
-
     return (
-        <div className="submit-form was-validated">
-            {submitted ? (<div>
-                <h4>You submitted successfully!</h4>
-                <button className="btn btn-success" onClick={newTutorial}>
-                    Add
-                </button>
-            </div>) : (<div>
-                <div className="form-group">
-                    <label htmlFor="expense">Expense</label>
-                    <input
-                        id="expense"
-                        type="text"
-                        required
-                        className="form-control"
-                        value={expense.name}
-                        onChange={handleInputChange}
-                        name="name"
-                    />
-                </div>
+        <Container>
+            <Card>
+                <h2 className="text-center">Add expense</h2>
+                <Card.Body>
+                    <Formik initialValues={initialValues} onSubmit={onSubmitCreate}>
+                        <Form className="form">
+                            <Row>
+                                <label>Expense</label>
+                                <ErrorMessage name="expense" component="span"/>
+                                <Field className="input" name="name"/>
 
-                <div className="form-group">
-                    <label htmlFor="price">Price</label>
-                    <input
-                        id="price"
-                        type="number"
-                        required
-                        className="form-control"
-                        value={expense.price}
-                        onChange={handleInputChange}
-                        name="price"
-                    />
-                </div>
+                                <label>Price</label>
+                                <ErrorMessage name="price" component="span"/>
+                                <Field className="input" name="price"/>
 
-                <button onClick={saveExpense}
-                        disabled={
-                            getDisabled()
-                        }
-                        className="btn btn-success">
-                    Submit
-                </button>
-            </div>)}
-        </div>);
+                                <label>Id</label>
+                                <ErrorMessage name="id" component="span"/>
+                                <Field className="input" name="client.id"/>
 
+                                <button type="submit">Add expense</button>
+                            </Row>
+                        </Form>
+                    </Formik>
+                </Card.Body>
+            </Card>
+        </Container>
+    );
 }
 
 export default AddExpense

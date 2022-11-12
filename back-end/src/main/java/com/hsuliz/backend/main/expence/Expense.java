@@ -1,16 +1,19 @@
 package com.hsuliz.backend.main.expence;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.hsuliz.backend.main.client.Client;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-@Data
 @Entity
+@Setter
+@Getter
 @NoArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 public class Expense {
 
     @Id
@@ -20,5 +23,10 @@ public class Expense {
     private String name;
 
     private Float price;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "client_id")
+    @JsonIgnoreProperties(value = {"expenses", "name", "email"})
+    private Client client;
 
 }
