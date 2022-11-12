@@ -24,7 +24,7 @@ public class Client {
 
     private String email;
 
-    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Expense> expenses = new HashSet<>();
 
     public Client(Long id, String name, String email) {

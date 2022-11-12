@@ -1,14 +1,14 @@
 type Client = {
-    id?: number,
-    name: string,
-    email: string
+    id: string,
+    name?: string,
+    email?: string
 }
 
 type Expense = {
     id?: number,
     name: string,
     price: string
-    clientId: string
+    client: Client
 }
 
 export type {Client, Expense};
