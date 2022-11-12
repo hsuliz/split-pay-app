@@ -27,15 +27,4 @@ public class Expense {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Client client;
 
-
-    @Override
-    public String toString() {
-        return "Expense{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                ", clientId=" + client.getId() +
-                '}';
-    }
-
 }
