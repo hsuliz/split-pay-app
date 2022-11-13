@@ -9,7 +9,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 @Setter
@@ -28,7 +30,7 @@ public class Expense {
     private String name;
 
     @ApiModelProperty(notes = "Price shouldn't be empty")
-    @NotEmpty
+    @DecimalMin(value = "0")
     private Float price;
 
     @ApiModelProperty(notes = "Client who paid")
