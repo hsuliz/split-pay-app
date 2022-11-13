@@ -17,7 +17,7 @@ public class BackEndApplication {
     @Bean
     CommandLineRunner commandLineRunner(ClientRepository clientRepository) {
         return args -> {
-            clientRepository.save(new Client("Sasha", "gmail"));
+            clientRepository.save(new Client("Sasha", "sasha@gmail.com"));
         };
     }
 }
