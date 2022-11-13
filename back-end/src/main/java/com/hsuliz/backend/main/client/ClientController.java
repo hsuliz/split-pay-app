@@ -38,7 +38,6 @@ public class ClientController {
     @ApiOperation(
             value = "Add client",
             notes = "Returns successful message"
-
     )
     public ResponseEntity<String> addClient(@RequestBody Client client) {
         clientService.saveClient(client);
