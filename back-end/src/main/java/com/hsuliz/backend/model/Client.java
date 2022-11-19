@@ -1,7 +1,6 @@
-package com.hsuliz.backend.main.client;
+package com.hsuliz.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.hsuliz.backend.main.expence.Expense;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;

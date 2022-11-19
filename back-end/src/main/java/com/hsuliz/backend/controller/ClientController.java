@@ -1,5 +1,7 @@
-package com.hsuliz.backend.main.client;
+package com.hsuliz.backend.controller;
 
+import com.hsuliz.backend.service.ClientService;
+import com.hsuliz.backend.model.Client;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;

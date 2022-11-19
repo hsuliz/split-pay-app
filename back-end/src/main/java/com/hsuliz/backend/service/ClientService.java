@@ -1,6 +1,7 @@
-package com.hsuliz.backend.main.client;
+package com.hsuliz.backend.service;
 
-import com.hsuliz.backend.main.client.exception.ClientNotFoundException;
+import com.hsuliz.backend.repository.ClientRepository;
+import com.hsuliz.backend.model.Client;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,7 @@ public class ClientService {
     public Client getClient(long id) {
         return clientRepository
                 .findById(id)
-                .orElseThrow(() -> new ClientNotFoundException(id));
+                .orElseThrow(RuntimeException::new);
     }
 
     public List<Client> getClients() {
