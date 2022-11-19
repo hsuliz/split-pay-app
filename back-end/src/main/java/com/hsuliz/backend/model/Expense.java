@@ -1,7 +1,6 @@
-package com.hsuliz.backend.main.expence;
+package com.hsuliz.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.hsuliz.backend.main.client.Client;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -11,7 +10,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 
 @Entity
 @Setter

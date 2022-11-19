@@ -1,7 +1,7 @@
 package com.hsuliz.backend;
 
-import com.hsuliz.backend.main.client.Client;
-import com.hsuliz.backend.main.client.ClientRepository;
+import com.hsuliz.backend.model.Client;
+import com.hsuliz.backend.repository.ClientRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
