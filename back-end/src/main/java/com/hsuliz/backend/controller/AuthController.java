@@ -27,7 +27,8 @@ public class AuthController {
 
     private final PasswordEncoder passwordEncoder;
 
-    public AuthController(ClientRepository clientRepository, TokenService tokenService, AuthenticationManager authenticationManager, PasswordEncoder passwordEncoder) {
+    public AuthController(ClientRepository clientRepository, TokenService tokenService, AuthenticationManager authenticationManager,
+                          PasswordEncoder passwordEncoder) {
         this.clientRepository = clientRepository;
         this.tokenService = tokenService;
         this.authenticationManager = authenticationManager;

@@ -33,19 +33,8 @@ public class SecurityConfig {
     private final JpaUserDetailsService jpaUserDetailsService;
     private RSAKey rsaKey;
 
-    private final PasswordEncoder passwordEncoder;
-
     public SecurityConfig(JpaUserDetailsService jpaUserDetailsService, PasswordEncoder passwordEncoder) {
         this.jpaUserDetailsService = jpaUserDetailsService;
-        this.passwordEncoder = passwordEncoder;
-    }
-
-    @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-        authenticationProvider.setUserDetailsService(jpaUserDetailsService);
-        authenticationProvider.setPasswordEncoder(passwordEncoder);
-        return authenticationProvider;
     }
 
     @Bean
