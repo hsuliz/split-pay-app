@@ -10,6 +10,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,10 +25,13 @@ public class AuthController {
     private final TokenService tokenService;
     private final AuthenticationManager authenticationManager;
 
-    public AuthController(ClientRepository clientRepository, TokenService tokenService, AuthenticationManager authenticationManager) {
+    private final PasswordEncoder passwordEncoder;
+
+    public AuthController(ClientRepository clientRepository, TokenService tokenService, AuthenticationManager authenticationManager, PasswordEncoder passwordEncoder) {
         this.clientRepository = clientRepository;
         this.tokenService = tokenService;
         this.authenticationManager = authenticationManager;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @PostMapping("/token")
@@ -36,7 +40,17 @@ public class AuthController {
                 .authenticate(new UsernamePasswordAuthenticationToken(
                         userLogin.username(),
                         userLogin.password()));
+        LOG.info("Acces granted!!");
         return tokenService.generateToken(authentication);
     }
+
+    @PostMapping("/reg")
+    public String log(@RequestBody LoginRequest userLogin) throws AuthenticationException {
+        String encodedPass = passwordEncoder.encode(userLogin.password());
+        var client = new Client(userLogin.username(), encodedPass);
+        client = clientRepository.save(client);
+        return "User created!!";
+    }
+
 
 }
