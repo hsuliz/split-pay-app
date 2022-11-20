@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 
 @RestController
-@RequestMapping("/api/clients")
-@CrossOrigin
+@RequestMapping("/clients")
 @AllArgsConstructor
 public class ClientController {
 
     private final ClientRepository clientRepository;
+
     private final ExpenseRepository expenseRepository;
 
     @GetMapping
