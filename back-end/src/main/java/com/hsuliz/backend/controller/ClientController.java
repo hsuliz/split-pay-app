@@ -20,8 +20,8 @@ public class ClientController {
     private final ExpenseRepository expenseRepository;
 
     @GetMapping("/info")
-    public String getUserDetails(Principal principal) {
-        return principal.getName();
+    public Client getUserDetails(Principal principal) {
+        return clientRepository.findByEmail(principal.getName()).get();
     }
 
     @PostMapping("/add")
