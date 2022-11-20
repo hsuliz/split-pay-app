@@ -17,14 +17,6 @@ public class BackEndApplication {
         SpringApplication.run(BackEndApplication.class, args);
     }
 
-    @Bean
-    CommandLineRunner commandLineRunner(ClientRepository clientRepository, PasswordEncoder passwordEncoder) {
-        return args -> {
-                clientRepository.save(
-                        new Client("sasha@gmail.com", passwordEncoder.encode("sasha2000"))
-                );
-        };
-    }
 
     @Bean
     @Primary
