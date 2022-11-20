@@ -1,6 +1,6 @@
 package com.hsuliz.backend.configuration.security;
 
-import com.hsuliz.backend.JpaUserDetailsService;
+import com.hsuliz.backend.service.ClientDetailsService;
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
@@ -18,7 +18,6 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
@@ -30,11 +29,11 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableMethodSecurity
 public class SecurityConfig {
 
-    private final JpaUserDetailsService jpaUserDetailsService;
+    private final ClientDetailsService clientDetailsService;
     private RSAKey rsaKey;
 
-    public SecurityConfig(JpaUserDetailsService jpaUserDetailsService, PasswordEncoder passwordEncoder) {
-        this.jpaUserDetailsService = jpaUserDetailsService;
+    public SecurityConfig(ClientDetailsService clientDetailsService) {
+        this.clientDetailsService = clientDetailsService;
     }
 
     @Bean
@@ -48,7 +47,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
-                .userDetailsService(jpaUserDetailsService)
+                .userDetailsService(clientDetailsService)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
                 .build();

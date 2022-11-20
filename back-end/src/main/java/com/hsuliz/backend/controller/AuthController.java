@@ -32,11 +32,11 @@ public class AuthController {
 
 
     @PostMapping("/login")
-    public String token(@RequestBody LoginRequest userLogin) throws AuthenticationException {
+    public String token(@RequestBody LoginRequest clientLogin) throws AuthenticationException {
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(
-                        userLogin.username(),
-                        userLogin.password()));
+                        clientLogin.username(),
+                        clientLogin.password()));
         log.info("Access granted!!");
         return tokenService.generateToken(authentication);
     }
@@ -44,8 +44,11 @@ public class AuthController {
     @PostMapping("/register")
     public String log(@RequestBody LoginRequest userLogin) throws AuthenticationException {
         String encodedPass = passwordEncoder.encode(userLogin.password());
-        var client = new Client(userLogin.username(), encodedPass);
-        client = clientRepository.save(client);
+        var client = new Client(
+                userLogin.username(),
+                encodedPass
+        );
+        clientRepository.save(client);
         return "User created!!";
     }
 

@@ -1,4 +1,4 @@
-package com.hsuliz.backend;
+package com.hsuliz.backend.model;
 
 import com.hsuliz.backend.entity.Client;
 import org.springframework.security.core.GrantedAuthority;
@@ -9,6 +9,7 @@ import java.util.Collection;
 public class SecurityUser implements UserDetails {
 
     private final Client user;
+
 
     public SecurityUser(Client user) {
         this.user = user;
@@ -48,4 +49,5 @@ public class SecurityUser implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 }

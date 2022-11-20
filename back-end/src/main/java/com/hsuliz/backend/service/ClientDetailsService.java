@@ -1,6 +1,8 @@
-package com.hsuliz.backend;
+package com.hsuliz.backend.service;
 
+import com.hsuliz.backend.model.SecurityUser;
 import com.hsuliz.backend.repository.ClientRepository;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -9,13 +11,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class JpaUserDetailsService implements UserDetailsService {
+@AllArgsConstructor
+public class ClientDetailsService implements UserDetailsService {
 
     private final ClientRepository userRepository;
 
-    public JpaUserDetailsService(ClientRepository userRepository) {
-        this.userRepository = userRepository;
-    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
