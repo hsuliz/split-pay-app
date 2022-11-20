@@ -19,12 +19,12 @@ public class ClientController {
     private final ClientRepository clientRepository;
     private final ExpenseRepository expenseRepository;
 
-    @GetMapping("/info")
+    @GetMapping
     public Client getUserDetails(Principal principal) {
         return clientRepository.findByEmail(principal.getName()).get();
     }
 
-    @PostMapping("/add")
+    @PostMapping
     public Client addExpense(@RequestBody Expense expense) {
         String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         var client = clientRepository.findByEmail(email).get();
