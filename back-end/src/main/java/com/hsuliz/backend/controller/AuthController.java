@@ -32,10 +32,6 @@ public class AuthController {
 
     @PostMapping("/token")
     public String token(@RequestBody LoginRequest userLogin) throws AuthenticationException {
-        LOG.info(userLogin.username(), userLogin.password());
-        clientRepository.save(new Client(userLogin.username(), userLogin.password()));
-
-
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(
                         userLogin.username(),
