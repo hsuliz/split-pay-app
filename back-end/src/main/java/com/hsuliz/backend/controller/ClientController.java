@@ -1,13 +1,14 @@
 package com.hsuliz.backend.controller;
 
-import com.hsuliz.backend.service.ClientService;
-import com.hsuliz.backend.model.Client;
-import io.swagger.annotations.ApiOperation;
+import com.hsuliz.backend.entity.Client;
+import com.hsuliz.backend.entity.Expense;
+import com.hsuliz.backend.repository.ClientRepository;
+import com.hsuliz.backend.repository.ExpenseRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.security.Principal;
 
 @RestController
 @RequestMapping("/api/clients")
@@ -15,46 +16,21 @@ import java.util.List;
 @AllArgsConstructor
 public class ClientController {
 
-    private final ClientService clientService;
+    private final ClientRepository clientRepository;
+    private final ExpenseRepository expenseRepository;
 
-
-    @GetMapping("/{id}")
-    @ApiOperation(
-            value = "Find client by id",
-            notes = "Returns client by id"
-    )
-    public ResponseEntity<Client> getClient(@PathVariable long id) {
-        return ResponseEntity.ok().body(clientService.getClient(id));
+    @GetMapping("/info")
+    public String getUserDetails(Principal principal) {
+        return principal.getName();
     }
 
-    @GetMapping
-    @ApiOperation(
-            value = "Get all clients",
-            notes = "Returns list of clients"
-    )
-    public ResponseEntity<List<Client>> getClients() {
-        return ResponseEntity.ok().body(clientService.getClients());
-    }
-
-    @PostMapping
-    @ApiOperation(
-            value = "Add client",
-            notes = "Returns successful message"
-    )
-    public ResponseEntity<String> addClient(@RequestBody Client client) {
-        clientService.saveClient(client);
-        return ResponseEntity.ok("Client saved!!");
-    }
-
-    @DeleteMapping("/{id}")
-    @ApiOperation(
-            value = "Delete client",
-            notes = "Returns successful message"
-
-    )
-    public ResponseEntity<String> deleteClient(@PathVariable long id) {
-        clientService.deleteClient(id);
-        return ResponseEntity.ok("Client deleted!!");
+    @PostMapping("/add")
+    public Client addExpense(@RequestBody Expense expense) {
+        String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        var client = clientRepository.findByEmail(email).get();
+        expense.setClient(client);
+        expenseRepository.save(expense);
+        return client;
     }
 
 }

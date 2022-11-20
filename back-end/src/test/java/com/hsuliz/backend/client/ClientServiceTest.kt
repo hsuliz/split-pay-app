@@ -1,6 +1,6 @@
 package com.hsuliz.backend.client
 
-import com.hsuliz.backend.model.Client
+import com.hsuliz.backend.entity.Client
 import com.hsuliz.backend.repository.ClientRepository
 import com.hsuliz.backend.service.ClientService
 import org.assertj.core.api.Assertions.assertThat

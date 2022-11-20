@@ -1,6 +1,6 @@
 package com.hsuliz.backend;
 
-import com.hsuliz.backend.model.Client;
+import com.hsuliz.backend.entity.Client;
 import com.hsuliz.backend.repository.ClientRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -17,7 +17,7 @@ public class BackEndApplication {
     @Bean
     CommandLineRunner commandLineRunner(ClientRepository clientRepository) {
         return args -> {
-            clientRepository.save(new Client("Sasha", "sasha@gmail.com"));
+
         };
     }
 }
