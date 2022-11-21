@@ -13,8 +13,6 @@ import java.util.UUID;
  */
 public class Jwks {
 
-    private Jwks() {}
-
     public static RSAKey generateRsa() {
         KeyPair keyPair = KeyGeneratorUtils.generateRsaKey();
         RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
@@ -24,4 +22,5 @@ public class Jwks {
                 .keyID(UUID.randomUUID().toString())
                 .build();
     }
+
 }

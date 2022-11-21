@@ -6,6 +6,7 @@ import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,14 +28,12 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
 
     private final ClientDetailsService clientDetailsService;
     private RSAKey rsaKey;
 
-    public SecurityConfig(ClientDetailsService clientDetailsService) {
-        this.clientDetailsService = clientDetailsService;
-    }
 
     @Bean
     public AuthenticationManager authManager(UserDetailsService userDetailsService) {
