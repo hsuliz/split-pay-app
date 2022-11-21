@@ -1,8 +1,11 @@
 package com.hsuliz.backend
 
+import com.hsuliz.backend.model.LoginRequest
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.server.LocalServerPort
 import org.springframework.web.client.RestTemplate
@@ -14,6 +17,9 @@ internal class BackEndApplicationTests {
     private var port: Int? = null
 
     private var baseUrl: String = "http://localhost"
+
+    @Autowired
+    private lateinit var h2Repository: TestH2Repository
 
 
     companion object {
@@ -31,12 +37,22 @@ internal class BackEndApplicationTests {
     //http://localhost:8080/api/auth/register
     @BeforeEach
     fun beforeEach() {
-        baseUrl = "$baseUrl:$port/api"
+        baseUrl = "$baseUrl:$port/api/auth"
     }
 
+
     @Test
-    fun `dude`() {
-        print(baseUrl)
+    fun test() {
+        val client = LoginRequest("sasha", "password")
+        val x = restTemplate.postForEntity(
+            "$baseUrl/register",
+            client,
+            String::class.java
+        )
+        //val x = restTemplate.postForObject("$baseUrl/register", client, String::class.java)
+        print(x)
+        assertThat(h2Repository.findAll().size).isEqualTo(1)
     }
+
 
 }
