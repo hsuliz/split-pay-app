@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.Principal;
+
 @RestController
 @RequestMapping("/auth")
 @AllArgsConstructor
@@ -32,7 +34,7 @@ public class AuthController {
 
 
     @PostMapping("/login")
-    public String token(@RequestBody LoginRequest clientLogin) throws AuthenticationException {
+    public String login(@RequestBody LoginRequest clientLogin) throws AuthenticationException {
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(
                         clientLogin.username(),
@@ -42,7 +44,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public String log(@RequestBody LoginRequest userLogin) throws AuthenticationException {
+    public String register(@RequestBody LoginRequest userLogin) throws AuthenticationException {
         String encodedPass = passwordEncoder.encode(userLogin.password());
         var client = new Client(
                 userLogin.username(),

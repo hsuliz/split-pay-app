@@ -1,6 +1,6 @@
 package com.hsuliz.backend.service;
 
-import com.hsuliz.backend.model.SecurityUser;
+import com.hsuliz.backend.model.ClientDetails;
 import com.hsuliz.backend.repository.ClientRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +21,7 @@ public class ClientDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository
                 .findByEmail(username)
-                .map(SecurityUser::new)
+                .map(ClientDetails::new)
                 .orElseThrow(() -> {
                     log.info("Username not found: " + username);
                     return new UsernameNotFoundException("Username not found: " + username);

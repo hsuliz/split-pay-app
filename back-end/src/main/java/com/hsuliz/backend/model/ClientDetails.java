@@ -1,28 +1,26 @@
 package com.hsuliz.backend.model;
 
 import com.hsuliz.backend.entity.Client;
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
-public class SecurityUser implements UserDetails {
+@AllArgsConstructor
+public class ClientDetails implements UserDetails {
 
-    private final Client user;
+    private final Client client;
 
-
-    public SecurityUser(Client user) {
-        this.user = user;
-    }
 
     @Override
     public String getUsername() {
-        return user.getEmail();
+        return client.getEmail();
     }
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return client.getPassword();
     }
 
     @Override
