@@ -25,12 +25,9 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ApiModelProperty(notes = "Name shouldn't be empty")
-    private String name;
-
     @ApiModelProperty(notes = "Email shouldn't be empty")
     @NotEmpty
-    private String email;
+    private String username;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
@@ -41,14 +38,9 @@ public class Client {
     @JsonIgnoreProperties(value = {"client"})
     private Set<Expense> expenses = new HashSet<>();
 
-    public Client(Long id, String name, String email) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-    }
 
-    public Client(String email, String password) {
-        this.email = email;
+    public Client(String username, String password) {
+        this.username = username;
         this.password = password;
     }
 

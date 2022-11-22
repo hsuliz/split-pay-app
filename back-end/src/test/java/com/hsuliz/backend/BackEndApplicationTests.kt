@@ -2,6 +2,7 @@ package com.hsuliz.backend
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
+import com.hsuliz.backend.entity.Client
 import com.hsuliz.backend.model.LoginRequest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.*
@@ -27,10 +28,12 @@ internal class BackEndApplicationTests {
 
     private var baseUrl: String = "http://localhost"
 
+    private val jacksonObjectMapper = jacksonObjectMapper()
+
 
     companion object {
 
-        private val client = LoginRequest("sasha", "password")
+        private val givenLogin = LoginRequest("sasha", "password")
 
         private lateinit var restTemplate: RestTemplate
 
@@ -56,7 +59,7 @@ internal class BackEndApplicationTests {
     fun `given client should register`() {
         // given, when
         val responseFromRegister = restTemplate.postForEntity(
-            "$baseUrl/auth/register", client, String::class.java
+            "$baseUrl/auth/register", givenLogin, String::class.java
         )
 
         // then
@@ -71,7 +74,7 @@ internal class BackEndApplicationTests {
     fun `given client should login`() {
         // given, when
         val responseFromLogin = restTemplate.postForEntity(
-            "$baseUrl/auth/login", client, String::class.java
+            "$baseUrl/auth/login", givenLogin, String::class.java
         )
 
         // then
@@ -83,18 +86,19 @@ internal class BackEndApplicationTests {
     @Order(3)
     fun `given client should get details`() {
         // given
-        val mapper = jacksonObjectMapper()
         val headers = HttpHeaders()
         headers.set("Authorization", "Bearer $accessToken")
-        val entity = HttpEntity("body", headers)
 
         // when
         val responseFromInfo = restTemplate.exchange(
-            "$baseUrl/clients", HttpMethod.GET, entity, String::class.java
+            "$baseUrl/clients", HttpMethod.GET, HttpEntity("body", headers), String::class.java
         )
 
         // then
-        val x = responseFromInfo.body?.let { mapper.readValue<LoginRequest>(it) }
+        assertThat(responseFromInfo.body?.let { jacksonObjectMapper.readValue<Client>(it) }!!.username).isEqualTo(
+            givenLogin.username
+        )
     }
+
 
 }

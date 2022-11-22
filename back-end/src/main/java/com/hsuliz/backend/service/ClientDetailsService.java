@@ -20,7 +20,7 @@ public class ClientDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository
-                .findByEmail(username)
+                .findByUsername(username)
                 .map(ClientDetails::new)
                 .orElseThrow(() -> {
                     log.info("Username not found: " + username);

@@ -10,7 +10,7 @@ public record ClientDetails(Client client) implements UserDetails {
 
     @Override
     public String getUsername() {
-        return client.getEmail();
+        return client.getUsername();
     }
 
     @Override
