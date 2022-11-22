@@ -32,7 +32,6 @@ internal class End2EndTest {
     private val mapper = jacksonObjectMapper()
         .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
 
-
     companion object {
 
         private val givenLogin = LoginRequest("sasha", "password")
@@ -40,6 +39,7 @@ internal class End2EndTest {
         private lateinit var restTemplate: RestTemplate
 
         private lateinit var accessToken: String
+
 
         @JvmStatic
         @BeforeAll
