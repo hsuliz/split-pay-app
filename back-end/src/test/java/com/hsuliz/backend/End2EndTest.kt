@@ -55,7 +55,6 @@ internal class End2EndTest {
         baseUrl = "$baseUrl:$port/api"
     }
 
-
     @Test
     @Order(1)
     fun `given client should register`() {
@@ -98,7 +97,6 @@ internal class End2EndTest {
 
         // then
         val client = mapper.readValue(responseFromInfo.body, Client::class.java)
-
         assertAll(
             { assertThat(client).isNotNull },
             { assertThat(client.username).isEqualTo(givenLogin.username) },
