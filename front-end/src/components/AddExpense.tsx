@@ -42,10 +42,6 @@ function AddExpense() {
                                 <ErrorMessage name="price" component="span"/>
                                 <Field className="input" name="price"/>
 
-                                <label>Id</label>
-                                <ErrorMessage name="id" component="span"/>
-                                <Field className="input" name="client.id"/>
-
                                 <button type="submit">Add expense</button>
                             </Row>
                         </Form>
