@@ -43,14 +43,18 @@ internal class BackEndApplicationTests {
 
     @Test
     fun test() {
+        // given
         val client = LoginRequest("sasha", "password")
-        val x = restTemplate.postForEntity(
+        val response = restTemplate.postForEntity(
             "$baseUrl/register",
             client,
             String::class.java
         )
-        //val x = restTemplate.postForObject("$baseUrl/register", client, String::class.java)
-        print(x)
+
+
+
+
+        assertThat(response.statusCode.is2xxSuccessful).isTrue
         assertThat(h2Repository.findAll().size).isEqualTo(1)
     }
 
