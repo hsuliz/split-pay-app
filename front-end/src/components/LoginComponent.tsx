@@ -1,8 +1,8 @@
-import React from "react";
+import React, {useState} from "react";
 import {Card, Container, Row} from "react-bootstrap";
 import {Field, Form, Formik} from "formik";
-import {useNavigate} from "react-router-dom";
 import clientService from "../services/ClientService";
+import {Client} from "../services/Types";
 
 export type Login = {
     username: string,
@@ -11,7 +11,9 @@ export type Login = {
 
 const LoginComponent: React.FC = () => {
 
-    const navigate = useNavigate();
+    const [client, setClient] = useState<Client>()
+    const [status, setStatus] = useState<"idle" | "verified" | "error">
+    ("idle");
 
     const initialValues: Login = {
         password: "",
@@ -21,38 +23,49 @@ const LoginComponent: React.FC = () => {
     const onSubmitCreate = (data: Login) => {
         console.log(data)
         clientService.getToken(data)
-            .catch((e: Error) => {
-                console.log(e);
+            .then(() => {
+                console.log("dude")
             })
-        /*expenseService.post(data)
-            .then(() => navigate("/list"))
             .catch((e: Error) => {
-                console.log(e);
-            })*/
+                console.log("im here")
+                console.log(e)
+            })
     };
 
+    if (status == "idle") {
+        return (
+            <Container>
+                <Card>
+                    <Card.Body>
+                        <Formik initialValues={initialValues} onSubmit={onSubmitCreate}>
+                            <Form className="form">
+                                <Row>
+                                    <label>Username</label>
+                                    <Field className="input" name="username"/>
 
-    return (
-        <Container>
-            <Card>
-                <Card.Body>
-                    <Formik initialValues={initialValues} onSubmit={onSubmitCreate}>
-                        <Form className="form">
-                            <Row>
-                                <label>Expense</label>
-                                <Field className="input" name="username"/>
+                                    <label>Password</label>
+                                    <Field className="input" name="password"/>
 
-                                <label>Price</label>
-                                <Field className="input" name="password"/>
+                                    <button type="submit">Log in</button>
+                                </Row>
+                            </Form>
+                        </Formik>
+                    </Card.Body>
+                </Card>
+            </Container>
+        );
+    } else if (status == "verified") {
+        return (
+            <Container>
+                fdfdf
+            </Container>
+        )
+    } else {
+        return (
+            <h1>Pisja popa</h1>
+        )
+    }
 
-                                <button type="submit">Log in</button>
-                            </Row>
-                        </Form>
-                    </Formik>
-                </Card.Body>
-            </Card>
-        </Container>
-    );
 }
 
 export default LoginComponent;

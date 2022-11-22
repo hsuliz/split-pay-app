@@ -30,11 +30,7 @@ const logIn = (clientForm: Login, token: string) => {
 }
 
 const getToken = (clientForm: Login) => {
-
-    return requester.post<Login>(
-        "/auth/login", clientForm
-    ).then(console.log).catch(console.log);
-
+    return requester.post<Login>("/auth/login", clientForm)
 }
 
 const ClientService = {
