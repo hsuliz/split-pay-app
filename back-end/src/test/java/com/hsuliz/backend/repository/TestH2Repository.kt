@@ -1,4 +1,4 @@
-package com.hsuliz.backend
+package com.hsuliz.backend.repository
 
 import com.hsuliz.backend.entity.Client
 import org.springframework.data.jpa.repository.JpaRepository

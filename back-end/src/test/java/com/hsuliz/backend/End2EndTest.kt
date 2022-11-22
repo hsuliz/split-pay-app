@@ -1,9 +1,10 @@
 package com.hsuliz.backend
 
+import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.fasterxml.jackson.module.kotlin.readValue
 import com.hsuliz.backend.entity.Client
 import com.hsuliz.backend.model.LoginRequest
+import com.hsuliz.backend.repository.TestH2Repository
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.*
 import org.springframework.beans.factory.annotation.Autowired
@@ -18,7 +19,7 @@ import java.util.*
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
-internal class BackEndApplicationTests {
+internal class End2EndTest {
 
     @LocalServerPort
     private var port: Int = 0
@@ -28,7 +29,8 @@ internal class BackEndApplicationTests {
 
     private var baseUrl: String = "http://localhost"
 
-    private val jacksonObjectMapper = jacksonObjectMapper()
+    private val mapper = jacksonObjectMapper()
+        .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
 
 
     companion object {
@@ -41,13 +43,13 @@ internal class BackEndApplicationTests {
 
         @JvmStatic
         @BeforeAll
-        fun beforeAll(): Unit {
+        fun beforeAll() {
             restTemplate = RestTemplate()
         }
 
     }
 
-    //http://localhost:8080/api/auth/register
+
     @BeforeEach
     fun beforeEach() {
         baseUrl = "$baseUrl:$port/api"
@@ -95,10 +97,13 @@ internal class BackEndApplicationTests {
         )
 
         // then
-        assertThat(responseFromInfo.body?.let { jacksonObjectMapper.readValue<Client>(it) }!!.username).isEqualTo(
-            givenLogin.username
+        val client = mapper.readValue(responseFromInfo.body, Client::class.java)
+
+        assertAll(
+            { assertThat(client).isNotNull },
+            { assertThat(client.username).isEqualTo(givenLogin.username) },
+            { assertThat(client.password).isNull() }
         )
     }
-
 
 }
