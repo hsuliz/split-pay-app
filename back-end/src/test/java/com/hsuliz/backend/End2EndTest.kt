@@ -60,7 +60,7 @@ internal class End2EndTest {
     fun `given client should register`() {
         // given, when
         val responseFromRegister = restTemplate.postForEntity(
-            "$baseUrl/auth/register", givenLogin, String::class.java
+            "$baseUrl/auth/signup", givenLogin, String::class.java
         )
 
         // then
@@ -75,7 +75,7 @@ internal class End2EndTest {
     fun `given client should login`() {
         // given, when
         val responseFromLogin = restTemplate.postForEntity(
-            "$baseUrl/auth/login", givenLogin, String::class.java
+            "$baseUrl/auth/signin", givenLogin, String::class.java
         )
 
         // then
