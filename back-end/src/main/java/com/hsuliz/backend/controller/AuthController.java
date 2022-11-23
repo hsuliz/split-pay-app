@@ -16,12 +16,12 @@ public class AuthController {
 
     private final ClientAuthService clientAuthService;
 
-    @PostMapping("/login")
+    @PostMapping("/signin")
     public String login(@RequestBody LoginRequest clientLogin) throws AuthenticationException {
         return clientAuthService.authenticate(clientLogin);
     }
 
-    @PostMapping("/register")
+    @PostMapping("/signup")
     public String register(@RequestBody LoginRequest userLogin) throws AuthenticationException {
         return clientAuthService.register(userLogin);
     }

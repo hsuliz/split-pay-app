@@ -25,7 +25,7 @@ public class ClientController {
     private final ExpenseRepository expenseRepository;
 
     @GetMapping
-    public Client getUserDetails(Principal principal) {
+    public Client getClientInfo(Principal principal) {
         return clientRepository.findByUsername(principal.getName()).get();
     }
 
