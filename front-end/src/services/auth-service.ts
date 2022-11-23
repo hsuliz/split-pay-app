@@ -30,7 +30,7 @@ class AuthService {
         });
     }
 
-    getCurrentUser() {
+    getCurrentClientToken() {
         const userStr = localStorage.getItem("user");
         if (userStr) return userStr;
 

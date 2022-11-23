@@ -1,12 +1,15 @@
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import ClientService from "../../services/client-service";
+import {ClientType} from "../../types/client-type";
 
-const InfoPage = ({client}: any) => {
+const InfoPage = () => {
+
+    const [client, setClient] = useState<ClientType>();
 
     useEffect(() => {
         ClientService.getClientInfo()
             .then((response) => {
-                console.log(response);
+                setClient(response.data);
             })
             .catch((e: Error) => {
                 console.log(e);
@@ -14,7 +17,7 @@ const InfoPage = ({client}: any) => {
     }, [])
 
     return (
-        <h1>Hi, {client}</h1>
+        <h1>Hi, {client?.username}</h1>
     )
 }
 

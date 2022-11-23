@@ -16,8 +16,7 @@ const LoginPage: React.FC = () => {
 
 
     useEffect(() => {
-        const currentUser = authService.getCurrentUser();
-        console.log(currentUser);
+        const currentUser = authService.getCurrentClientToken();
         if (currentUser) {
             setAuthenticated(true);
         }
@@ -41,7 +40,7 @@ const LoginPage: React.FC = () => {
     };
 
     if (authenticated) {
-        return <InfoPage client="sasha"/>
+        return <InfoPage/>
     }
 
     return (
