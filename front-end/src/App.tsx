@@ -37,7 +37,7 @@ const App: React.FC = () => {
             <div className="container mt-3">
                 <Routes>
                     <Route path="/" element={<ClientLoginComponent/>}/>
-                    <Route path="/add" element={<ExpensesListComponent/>}/>
+                    <Route path="/list" element={<ExpensesListComponent/>}/>
                 </Routes>
             </div>
         </div>

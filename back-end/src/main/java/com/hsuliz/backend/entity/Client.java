@@ -1,5 +1,6 @@
 package com.hsuliz.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
@@ -34,8 +35,9 @@ public class Client {
 
     @ApiModelProperty(notes = "Client expenses")
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
     //@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    @JsonIgnoreProperties(value = {"client"})
+    //@JsonIgnoreProperties(value = {"client"})
     private Set<Expense> expenses = new HashSet<>();
 
 

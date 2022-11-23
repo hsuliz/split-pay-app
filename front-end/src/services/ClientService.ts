@@ -1,5 +1,6 @@
 import requester from "./requester";
 import {Client} from "../types/Client";
+import {Expense} from "../types/ExpenseType";
 
 const info = (token: string | null) => {
     const config = {
@@ -12,8 +13,19 @@ const info = (token: string | null) => {
     )
 }
 
+const expenses = (token: string | null) => {
+    const config = {
+        headers: {Authorization: `Bearer ${token}`}
+    };
+
+    return requester.get<Array<Expense>>(
+        "/clients/expenses",
+        config
+    )
+}
+
 const ClientService = {
-    info
+    info, expenses
 }
 
 export default ClientService;

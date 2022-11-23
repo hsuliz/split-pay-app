@@ -66,7 +66,7 @@ internal class End2EndTest {
         // then
         assertAll(
             { assertThat(responseFromRegister.statusCode.is2xxSuccessful).isTrue },
-            { assertThat(h2Repository.findAll().size).isEqualTo(1) }
+            { assertThat(h2Repository.findAll().size).isEqualTo(2) }
         )
     }
 
