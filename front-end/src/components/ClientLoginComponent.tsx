@@ -1,15 +1,11 @@
 import React from "react";
 import {Card, Container, Row} from "react-bootstrap";
 import {Field, Form, Formik} from "formik";
-import clientService from "../services/ClientService";
 import ClientInfoComponent from "./ClientInfoComponent";
+import {Login} from "../types/LoginType";
+import ClientAuthService from "../services/ClientAuthService";
 
-export type Login = {
-    username: string,
-    password: string
-}
-
-const LoginComponent: React.FC = () => {
+const ClientLoginComponent: React.FC = () => {
 
     const initialValues: Login = {
         password: "",
@@ -17,7 +13,7 @@ const LoginComponent: React.FC = () => {
     }
 
     const onSubmit = (loginVal: any) => {
-        clientService.getToken(loginVal)
+        ClientAuthService.getToken(loginVal)
             .then(r => {
                 localStorage.setItem("token", r.data);
                 window.location.reload();
@@ -57,4 +53,4 @@ const LoginComponent: React.FC = () => {
 
 }
 
-export default LoginComponent;
+export default ClientLoginComponent;

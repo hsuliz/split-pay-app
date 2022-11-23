@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import clientService from "../services/ClientService";
-import {Client} from "../services/Types";
 import {Container} from "react-bootstrap";
+import {Client} from "../types/Client";
 
 
 const ClientInfoComponent: React.FC = () => {

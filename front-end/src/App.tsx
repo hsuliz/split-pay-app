@@ -2,9 +2,7 @@ import {Link, Route, Routes} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import React from "react";
-import ExpenseList from "./components/ExpenseList";
-import LoginComponent from "./components/LoginComponent";
-import AddExpense from "./components/AddExpense";
+import ClientLoginComponent from "./components/ClientLoginComponent";
 import {Button} from "react-bootstrap";
 
 const App: React.FC = () => {
@@ -37,9 +35,8 @@ const App: React.FC = () => {
             </nav>
             <div className="container mt-3">
                 <Routes>
-                    <Route path="/" element={<LoginComponent/>}/>
-                    <Route path="/list" element={<ExpenseList/>}/>
-                    <Route path="/add" element={<AddExpense/>}/>
+                    <Route path="/" element={<ClientLoginComponent/>}/>
+                    <Route path="/add"/>
                 </Routes>
             </div>
         </div>

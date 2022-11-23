@@ -1,6 +1,5 @@
 import requester from "./requester";
-import {Login} from "../components/LoginComponent";
-import {Client} from "./Types";
+import {Client} from "../types/Client";
 
 const info = (token: string | null) => {
     const config = {
@@ -13,12 +12,8 @@ const info = (token: string | null) => {
     )
 }
 
-const getToken = (clientForm: Login) => {
-    return requester.post<string>("/auth/login", clientForm)
-}
-
 const ClientService = {
-    info, getToken
+    info
 }
 
 export default ClientService;
