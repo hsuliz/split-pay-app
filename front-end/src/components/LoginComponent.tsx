@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {Card, Container, Row} from "react-bootstrap";
 import {Field, Form, Formik} from "formik";
 import clientService from "../services/ClientService";
-import {Client} from "../services/Types";
+import ClientInfoComponent from "./ClientInfoComponent";
 
 export type Login = {
     username: string,
@@ -10,8 +10,6 @@ export type Login = {
 }
 
 const LoginComponent: React.FC = () => {
-
-    const [client, setClient] = useState<Client>()
 
     const initialValues: Login = {
         password: "",
@@ -28,22 +26,6 @@ const LoginComponent: React.FC = () => {
                 console.log(e);
             })
     };
-
-    useEffect(() => {
-        clientService.info(localStorage.getItem("token"))
-            .then((r) => {
-                setClient(r.data)
-                console.log(r.data);
-            })
-    }, [])
-
-    const getInfo = () => {
-        return (
-            <Container>
-                {client?.id} {client?.username}
-            </Container>
-        )
-    }
 
     if (localStorage.getItem("token") == null) {
         return (
@@ -69,10 +51,7 @@ const LoginComponent: React.FC = () => {
         );
     } else {
         return (
-            <Container>
-                <h2 className="text-center">Client detail</h2>
-                {getInfo()}
-            </Container>
+            <ClientInfoComponent/>
         )
     }
 
