@@ -12,14 +12,14 @@ class AuthService {
             })
             .then(response => {
                 if (response.data) {
-                    localStorage.setItem("user", response.data);
+                    localStorage.setItem("token", response.data);
                 }
                 return response.data;
             });
     }
 
     logout() {
-        localStorage.removeItem("user");
+        localStorage.removeItem("token");
     }
 
     register(username: string, email: string, password: string) {
@@ -31,7 +31,7 @@ class AuthService {
     }
 
     getCurrentClientToken() {
-        const userStr = localStorage.getItem("user");
+        const userStr = localStorage.getItem("token");
         if (userStr) return userStr;
 
         return null;

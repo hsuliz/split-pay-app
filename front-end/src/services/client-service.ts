@@ -12,6 +12,13 @@ class ClientService {
         );
     }
 
+    getClientExpenses() {
+        return axios.get(
+            API_URL + "/expenses",
+            {headers: authHeader()}
+        );
+    }
+
 
 }
 

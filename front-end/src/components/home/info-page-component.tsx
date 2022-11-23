@@ -19,6 +19,7 @@ const InfoPage = () => {
     return (
         <h1>Hi, {client?.username}</h1>
     )
+
 }
 
 export default InfoPage;

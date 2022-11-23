@@ -2,7 +2,8 @@ import {Link, Route, Routes} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import React from "react";
-import LoginPage from "./components/home/login-page-component";
+import SigninPage from "./components/home/signin-page-component";
+import ExpensesListComponent from "./components/expenses-list-component";
 
 const App: React.FC = () => {
     return (
@@ -26,8 +27,8 @@ const App: React.FC = () => {
             </nav>
             <div className="container mt-3">
                 <Routes>
-                    <Route path="/" element={<LoginPage/>}/>
-                    <Route path="/list"/>
+                    <Route path="/" element={<SigninPage/>}/>
+                    <Route path="/list" element={<ExpensesListComponent/>}/>
                     <Route path="/add"/>
                 </Routes>
             </div>
