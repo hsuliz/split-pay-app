@@ -24,6 +24,17 @@ const expenses = (token: string | null) => {
     )
 }
 
+const addExpense = (token: string | null) => {
+    const config = {
+        headers: {Authorization: `Bearer ${token}`}
+    };
+
+    return requester.get<Array<Expense>>(
+        "/clients/expenses",
+        config
+    )
+}
+
 const ClientService = {
     info, expenses
 }

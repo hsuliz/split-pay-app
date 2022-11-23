@@ -5,8 +5,9 @@ import com.hsuliz.backend.entity.Expense;
 import com.hsuliz.backend.repository.ClientRepository;
 import com.hsuliz.backend.repository.ExpenseRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import lombok.val;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -16,6 +17,7 @@ import java.util.List;
 @RequestMapping("/clients")
 @AllArgsConstructor
 @CrossOrigin(origins = "*", allowedHeaders = "*")
+@Slf4j
 public class ClientController {
 
     private final ClientRepository clientRepository;
@@ -35,13 +37,13 @@ public class ClientController {
     }
 
 
-    @PostMapping
-    public Client addExpense(@RequestBody Expense expense) {
-        String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        var client = clientRepository.findByUsername(email).get();
+    @PostMapping("/expenses")
+    public ResponseEntity<String> addExpense(@RequestBody Expense expense, Principal principal) {
+        log.info("Im here");
+        var client = clientRepository.findByUsername(principal.getName()).get();
         expense.setClient(client);
         expenseRepository.save(expense);
-        return client;
+        return ResponseEntity.ok().body("Expense for user" + " " + client.getUsername() + " was added");
     }
 
 }
