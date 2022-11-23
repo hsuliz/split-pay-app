@@ -4,6 +4,9 @@ import "./App.css";
 import React from "react";
 import SigninPage from "./components/home/signin-page-component";
 import ExpensesListComponent from "./components/expenses-list-component";
+import ExpenseAddComponent from "./components/expense-add-component";
+import {Button} from "react-bootstrap";
+import AuthService from "./services/auth-service";
 
 const App: React.FC = () => {
     return (
@@ -23,13 +26,18 @@ const App: React.FC = () => {
                             Add expense
                         </Link>
                     </li>
+                    <li className="nav-item">
+                        <Button onClick={AuthService.logout} className="nav-link">
+                            Log out
+                        </Button>
+                    </li>
                 </div>
             </nav>
             <div className="container mt-3">
                 <Routes>
                     <Route path="/" element={<SigninPage/>}/>
                     <Route path="/list" element={<ExpensesListComponent/>}/>
-                    <Route path="/add"/>
+                    <Route path="/add" element={<ExpenseAddComponent/>}/>
                 </Routes>
             </div>
         </div>

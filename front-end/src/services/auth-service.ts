@@ -22,6 +22,7 @@ class AuthService {
         localStorage.removeItem("token");
     }
 
+    // #TODO
     register(username: string, email: string, password: string) {
         return axios.post(API_URL + "/signup", {
             username,

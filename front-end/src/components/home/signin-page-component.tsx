@@ -17,8 +17,8 @@ const SigninPage: React.FC = () => {
 
 
     useEffect(() => {
-        const currentUser = authService.getCurrentClientToken();
-        if (currentUser) {
+        const clientToken = authService.getCurrentClientToken();
+        if (clientToken) {
             setAuthenticated(true);
         }
     }, []);
@@ -84,7 +84,6 @@ const SigninPage: React.FC = () => {
                 </div>
             </div>
         </Container>
-
     );
 
 };
