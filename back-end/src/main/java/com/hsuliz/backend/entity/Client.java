@@ -1,6 +1,8 @@
-package com.hsuliz.backend.model;
+package com.hsuliz.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -24,29 +26,24 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ApiModelProperty(notes = "Name shouldn't be empty")
-    @NotEmpty
-    private String name;
-
     @ApiModelProperty(notes = "Email shouldn't be empty")
     @NotEmpty
-    private String email;
+    private String username;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String password;
 
     @ApiModelProperty(notes = "Client expenses")
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
     //@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    @JsonIgnoreProperties(value = {"client"})
+    //@JsonIgnoreProperties(value = {"client"})
     private Set<Expense> expenses = new HashSet<>();
 
-    public Client(Long id, String name, String email) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-    }
 
-    public Client(String name, String email) {
-        this.name = name;
-        this.email = email;
+    public Client(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
 
 }

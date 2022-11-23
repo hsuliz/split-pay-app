@@ -1,7 +1,7 @@
 package com.hsuliz.backend.service;
 
 import com.hsuliz.backend.repository.ExpenseRepository;
-import com.hsuliz.backend.model.Expense;
+import com.hsuliz.backend.entity.Expense;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

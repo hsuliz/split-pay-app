@@ -1,60 +1,49 @@
 package com.hsuliz.backend.controller;
 
-import com.hsuliz.backend.service.ClientService;
-import com.hsuliz.backend.model.Client;
-import io.swagger.annotations.ApiOperation;
+import com.hsuliz.backend.entity.Client;
+import com.hsuliz.backend.entity.Expense;
+import com.hsuliz.backend.repository.ClientRepository;
+import com.hsuliz.backend.repository.ExpenseRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/clients")
-@CrossOrigin
+@RequestMapping("/clients")
 @AllArgsConstructor
+@CrossOrigin(origins = "*", allowedHeaders = "*")
+@Slf4j
 public class ClientController {
 
-    private final ClientService clientService;
+    private final ClientRepository clientRepository;
 
-
-    @GetMapping("/{id}")
-    @ApiOperation(
-            value = "Find client by id",
-            notes = "Returns client by id"
-    )
-    public ResponseEntity<Client> getClient(@PathVariable long id) {
-        return ResponseEntity.ok().body(clientService.getClient(id));
-    }
+    private final ExpenseRepository expenseRepository;
 
     @GetMapping
-    @ApiOperation(
-            value = "Get all clients",
-            notes = "Returns list of clients"
-    )
-    public ResponseEntity<List<Client>> getClients() {
-        return ResponseEntity.ok().body(clientService.getClients());
+    public Client getClientInfo(Principal principal) {
+        return clientRepository.findByUsername(principal.getName()).get();
     }
 
-    @PostMapping
-    @ApiOperation(
-            value = "Add client",
-            notes = "Returns successful message"
-    )
-    public ResponseEntity<String> addClient(@RequestBody Client client) {
-        clientService.saveClient(client);
-        return ResponseEntity.ok("Client saved!!");
+    @GetMapping("/expenses")
+    public List<Expense> getUsersExpenses(Principal principal) {
+        var clientId = clientRepository.findByUsername(principal.getName()).get().getId();
+        val clientExpenses = expenseRepository.getExpenseByClient_Id(clientId);
+        return clientExpenses.get();
     }
 
-    @DeleteMapping("/{id}")
-    @ApiOperation(
-            value = "Delete client",
-            notes = "Returns successful message"
 
-    )
-    public ResponseEntity<String> deleteClient(@PathVariable long id) {
-        clientService.deleteClient(id);
-        return ResponseEntity.ok("Client deleted!!");
+    @PostMapping("/expenses")
+    public ResponseEntity<String> addExpense(@RequestBody Expense expense, Principal principal) {
+        log.info("Im here");
+        var client = clientRepository.findByUsername(principal.getName()).get();
+        expense.setClient(client);
+        expenseRepository.save(expense);
+        return ResponseEntity.ok().body("Expense for user" + " " + client.getUsername() + " was added");
     }
 
 }

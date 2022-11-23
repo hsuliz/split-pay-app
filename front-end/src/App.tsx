@@ -2,9 +2,11 @@ import {Link, Route, Routes} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import React from "react";
-import ExpenseList from "./components/ExpenseList";
-import LoginComponent from "./components/LoginComponent";
-import AddExpense from "./components/AddExpense";
+import SigninPage from "./components/home/signin-page-component";
+import ExpensesListComponent from "./components/expenses-list-component";
+import ExpenseAddComponent from "./components/expense-add-component";
+import {Button} from "react-bootstrap";
+import AuthService from "./services/auth-service";
 
 const App: React.FC = () => {
     return (
@@ -24,13 +26,18 @@ const App: React.FC = () => {
                             Add expense
                         </Link>
                     </li>
+                    <li className="nav-item">
+                        <Button onClick={AuthService.logout} className="nav-link">
+                            Log out
+                        </Button>
+                    </li>
                 </div>
             </nav>
             <div className="container mt-3">
                 <Routes>
-                    <Route path="/" element={<LoginComponent/>}/>
-                    <Route path="/list" element={<ExpenseList/>}/>
-                    <Route path="/add" element={<AddExpense/>}/>
+                    <Route path="/" element={<SigninPage/>}/>
+                    <Route path="/list" element={<ExpensesListComponent/>}/>
+                    <Route path="/add" element={<ExpenseAddComponent/>}/>
                 </Routes>
             </div>
         </div>

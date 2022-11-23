@@ -1,26 +1,22 @@
 import React, {useEffect, useState} from "react";
-import {Expense} from "../services/Types";
-import ExpenseService from "../services/ExpenseService";
 import {Container, Table} from "react-bootstrap";
+import {Expense} from "../types/expense-type";
+import ClientService from "../services/client-service";
 
-const ExpenseList: React.FC = () => {
+const ExpensesList: React.FC = () => {
 
-    const [expense, setExpense] = useState<Array<Expense>>([])
+    const [expenses, setExpenses] = useState<Array<Expense>>([])
+
 
     useEffect(() => {
-        getExpenses()
-    }, [])
-
-    const getExpenses = () => {
-        ExpenseService.getExpenses()
-            .then((response: any) => {
-                setExpense(response.data);
-                console.log(response.data);
+        ClientService.getClientExpenses()
+            .then((response) => {
+                setExpenses(response.data);
             })
             .catch((e: Error) => {
                 console.log(e);
             });
-    };
+    }, []);
 
     return (
         <Container>
@@ -31,22 +27,20 @@ const ExpenseList: React.FC = () => {
                     <tr>
                         <th>Expense</th>
                         <th>Price</th>
-                        <th>User</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {expense.map(expense =>
+                    {expenses.map(expense =>
                         <tr key={expense.id}>
                             <td>{expense.name}</td>
                             <td>{expense.price}</td>
-                            <td>{expense.client.id}</td>
                         </tr>)}
                     </tbody>
                 </Table>
             </Container>
         </Container>
     )
-};
 
+}
 
-export default ExpenseList;
+export default ExpensesList;

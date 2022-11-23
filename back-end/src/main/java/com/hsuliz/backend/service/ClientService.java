@@ -1,7 +1,7 @@
 package com.hsuliz.backend.service;
 
 import com.hsuliz.backend.repository.ClientRepository;
-import com.hsuliz.backend.model.Client;
+import com.hsuliz.backend.entity.Client;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
