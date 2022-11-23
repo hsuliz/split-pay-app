@@ -7,6 +7,7 @@ const ExpensesListComponent: React.FC = () => {
 
     const [expenses, setExpenses] = useState<Array<Expense>>([])
 
+
     useEffect(() => {
         fetchExpenses()
     }, [])

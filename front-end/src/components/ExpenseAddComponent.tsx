@@ -11,16 +11,13 @@ const ExpenseAddComponent: React.FC = () => {
         price: ""
     }
 
+
     const onSubmit = (expenseVal: any) => {
-        ClientService.addExpense(
-            localStorage.getItem("token"),
-            expenseVal)
+        ClientService.addExpense(localStorage.getItem("token"), expenseVal)
             .then(r => {
-                console.log(r.data);
                 window.location.reload();
             })
             .catch((e: Error) => {
-                console.log(expenseVal);
                 console.log(e);
             });
     };

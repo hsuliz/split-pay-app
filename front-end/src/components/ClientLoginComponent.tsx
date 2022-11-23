@@ -12,6 +12,7 @@ const ClientLoginComponent: React.FC = () => {
         username: "",
     }
 
+
     const onSubmit = (clientForm: any) => {
         ClientAuthService.getToken(clientForm)
             .then(r => {
@@ -19,11 +20,14 @@ const ClientLoginComponent: React.FC = () => {
                 window.location.reload();
             })
             .catch((e: Error) => {
+                localStorage.setItem("token", "expired");
                 console.log(e);
             });
     };
 
-    if (localStorage.getItem("token") == null) {
+
+    // #TODO need to change this
+    if (localStorage.getItem("token") == null || localStorage.getItem("token") == "expired") {
         return (
             <Container>
                 <Card>

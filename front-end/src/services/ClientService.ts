@@ -1,5 +1,5 @@
 import requester from "./requester";
-import {Client} from "../types/Client";
+import {ClientType} from "../types/ClientType";
 import {Expense} from "../types/ExpenseType";
 
 const info = (token: string | null) => {
@@ -7,7 +7,7 @@ const info = (token: string | null) => {
         headers: {Authorization: `Bearer ${token}`}
     };
 
-    return requester.get<Client>(
+    return requester.get<ClientType>(
         "/clients",
         config
     )
