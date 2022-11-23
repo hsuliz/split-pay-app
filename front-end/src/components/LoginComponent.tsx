@@ -13,18 +13,18 @@ const LoginComponent: React.FC = () => {
 
     const initialValues: Login = {
         password: "",
-        username: ""
+        username: "",
     }
 
     const onSubmit = (loginVal: any) => {
         clientService.getToken(loginVal)
             .then(r => {
-                localStorage.setItem("token", r.data)
-                console.log(localStorage.getItem("token"));
+                localStorage.setItem("token", r.data);
+                window.location.reload();
             })
             .catch((e: Error) => {
                 console.log(e);
-            })
+            });
     };
 
     if (localStorage.getItem("token") == null) {

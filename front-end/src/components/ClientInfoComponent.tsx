@@ -26,7 +26,7 @@ const ClientInfoComponent: React.FC = () => {
 
     return (
         <Container>
-            <h2 className="text-center">Client detail</h2>
+            <h2 className="text-center">Client details</h2>
             {getInfo()}
         </Container>
     )

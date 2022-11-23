@@ -1,7 +1,7 @@
 type Client = {
     id: string,
     username?: string,
-    email?: string
+    password?: string
 }
 
 type Expense = {

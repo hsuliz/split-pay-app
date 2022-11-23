@@ -26,7 +26,10 @@ const App: React.FC = () => {
                         </Link>
                     </li>
                     <li className="nav-item">
-                        <Button onClick={() => localStorage.clear()}>
+                        <Button onClick={() => {
+                            localStorage.clear()
+                            window.location.reload();
+                        }}>
                             Log out
                         </Button>
                     </li>
