@@ -24,19 +24,20 @@ const expenses = (token: string | null) => {
     )
 }
 
-const addExpense = (token: string | null) => {
+const addExpense = (token: string | null, expense: any) => {
     const config = {
         headers: {Authorization: `Bearer ${token}`}
     };
 
-    return requester.get<Array<Expense>>(
+    return requester.post<String>(
         "/clients/expenses",
+        expense,
         config
     )
 }
 
 const ClientService = {
-    info, expenses
+    info, expenses, addExpense
 }
 
 export default ClientService;

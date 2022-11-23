@@ -5,6 +5,7 @@ import React from "react";
 import ClientLoginComponent from "./components/ClientLoginComponent";
 import {Button} from "react-bootstrap";
 import ExpensesListComponent from "./components/ExpensesListComponent";
+import ExpenseAddComponent from "./components/ExpenseAddComponent";
 
 const App: React.FC = () => {
     return (
@@ -38,6 +39,7 @@ const App: React.FC = () => {
                 <Routes>
                     <Route path="/" element={<ClientLoginComponent/>}/>
                     <Route path="/list" element={<ExpensesListComponent/>}/>
+                    <Route path="/add" element={<ExpenseAddComponent/>}/>
                 </Routes>
             </div>
         </div>

@@ -12,8 +12,8 @@ const ClientLoginComponent: React.FC = () => {
         username: "",
     }
 
-    const onSubmit = (loginVal: any) => {
-        ClientAuthService.getToken(loginVal)
+    const onSubmit = (clientForm: any) => {
+        ClientAuthService.getToken(clientForm)
             .then(r => {
                 localStorage.setItem("token", r.data);
                 window.location.reload();
