@@ -8,7 +8,7 @@ const ExpenseList: React.FC = () => {
     const [expense, setExpense] = useState<Array<Expense>>([])
 
     useEffect(() => {
-        getExpenses()
+        console.log(localStorage.getItem("token"));
     }, [])
 
     const getExpenses = () => {
@@ -21,6 +21,7 @@ const ExpenseList: React.FC = () => {
                 console.log(e);
             });
     };
+
 
     return (
         <Container>

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Card, Container, Row} from "react-bootstrap";
 import {Field, Form, Formik} from "formik";
 import clientService from "../services/ClientService";
@@ -12,32 +12,45 @@ export type Login = {
 const LoginComponent: React.FC = () => {
 
     const [client, setClient] = useState<Client>()
-    const [status, setStatus] = useState<"idle" | "verified" | "error">
-    ("idle");
 
     const initialValues: Login = {
         password: "",
         username: ""
     }
 
-    const onSubmitCreate = (data: Login) => {
-        console.log(data)
-        clientService.getToken(data)
-            .then(() => {
-                console.log("dude")
+    const onSubmit = (loginVal: any) => {
+        clientService.getToken(loginVal)
+            .then(r => {
+                localStorage.setItem("token", r.data)
+                console.log(localStorage.getItem("token"));
             })
             .catch((e: Error) => {
-                console.log("im here")
-                console.log(e)
+                console.log(e);
             })
     };
 
-    if (status == "idle") {
+    useEffect(() => {
+        clientService.info(localStorage.getItem("token"))
+            .then((r) => {
+                setClient(r.data)
+                console.log(r.data);
+            })
+    }, [])
+
+    const getInfo = () => {
+        return (
+            <Container>
+                {client?.id} {client?.username}
+            </Container>
+        )
+    }
+
+    if (localStorage.getItem("token") == null) {
         return (
             <Container>
                 <Card>
                     <Card.Body>
-                        <Formik initialValues={initialValues} onSubmit={onSubmitCreate}>
+                        <Formik initialValues={initialValues} onSubmit={onSubmit}>
                             <Form className="form">
                                 <Row>
                                     <label>Username</label>
@@ -54,15 +67,12 @@ const LoginComponent: React.FC = () => {
                 </Card>
             </Container>
         );
-    } else if (status == "verified") {
-        return (
-            <Container>
-                fdfdf
-            </Container>
-        )
     } else {
         return (
-            <h1>Pisja popa</h1>
+            <Container>
+                <h2 className="text-center">Client detail</h2>
+                {getInfo()}
+            </Container>
         )
     }
 

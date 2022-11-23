@@ -1,40 +1,24 @@
 import requester from "./requester";
-import {Client} from "./Types";
 import {Login} from "../components/LoginComponent";
+import {Client} from "./Types";
 
-const getClient = (id: number) => {
-    return requester.get<Client>(`/clients/${id}`)
-}
-
-const getClients = () => {
-    return requester.get<Array<Client>>("/clients")
-}
-
-const postClient = (client: Client) => {
-    return requester.post<Client>("/clients", client)
-}
-
-const logIn = (clientForm: Login, token: string) => {
-
+const info = (token: string | null) => {
     const config = {
         headers: {Authorization: `Bearer ${token}`}
     };
 
-    const bodyParameters = {
-        key: "value"
-    };
-
-    return requester.post<Login>(
-        "/auth/login", bodyParameters, config
-    ).then(console.log).catch(console.log);
+    return requester.get<Client>(
+        "/clients",
+        config
+    )
 }
 
 const getToken = (clientForm: Login) => {
-    return requester.post<Login>("/auth/login", clientForm)
+    return requester.post<string>("/auth/login", clientForm)
 }
 
 const ClientService = {
-    getClient, getClients, postClient, logIn, getToken
+    info, getToken
 }
 
 export default ClientService;

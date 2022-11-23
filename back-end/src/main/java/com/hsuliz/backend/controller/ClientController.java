@@ -13,6 +13,7 @@ import java.security.Principal;
 @RestController
 @RequestMapping("/clients")
 @AllArgsConstructor
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ClientController {
 
     private final ClientRepository clientRepository;

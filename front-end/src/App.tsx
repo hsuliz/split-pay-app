@@ -5,6 +5,7 @@ import React from "react";
 import ExpenseList from "./components/ExpenseList";
 import LoginComponent from "./components/LoginComponent";
 import AddExpense from "./components/AddExpense";
+import {Button} from "react-bootstrap";
 
 const App: React.FC = () => {
     return (
@@ -23,6 +24,11 @@ const App: React.FC = () => {
                         <Link to={"/add"} className="nav-link">
                             Add expense
                         </Link>
+                    </li>
+                    <li className="nav-item">
+                        <Button onClick={() => localStorage.clear()}>
+                            Log out
+                        </Button>
                     </li>
                 </div>
             </nav>
