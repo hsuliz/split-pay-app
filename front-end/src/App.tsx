@@ -4,6 +4,7 @@ import "./App.css";
 import React from "react";
 import ClientLoginComponent from "./components/ClientLoginComponent";
 import {Button} from "react-bootstrap";
+import ExpensesListComponent from "./components/ExpensesListComponent";
 
 const App: React.FC = () => {
     return (
@@ -36,7 +37,7 @@ const App: React.FC = () => {
             <div className="container mt-3">
                 <Routes>
                     <Route path="/" element={<ClientLoginComponent/>}/>
-                    <Route path="/add"/>
+                    <Route path="/add" element={<ExpensesListComponent/>}/>
                 </Routes>
             </div>
         </div>
