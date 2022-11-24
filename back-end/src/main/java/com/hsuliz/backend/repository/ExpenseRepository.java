@@ -8,4 +8,5 @@ import java.util.Optional;
 
 public interface ExpenseRepository extends JpaRepository<Expense, Long> {
     Optional<List<Expense>> getExpenseByClient_Id(Long id);
+
 }

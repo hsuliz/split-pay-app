@@ -47,4 +47,5 @@ public class Expense {
         this.price = price;
         this.client = client;
     }
+
 }

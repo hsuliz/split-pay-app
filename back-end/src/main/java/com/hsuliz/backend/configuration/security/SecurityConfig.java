@@ -1,6 +1,6 @@
 package com.hsuliz.backend.configuration.security;
 
-import com.hsuliz.backend.service.ClientDetailsService;
+import com.hsuliz.backend.service.client.ClientDetailsService;
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;

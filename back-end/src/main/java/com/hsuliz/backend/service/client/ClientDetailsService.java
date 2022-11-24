@@ -1,4 +1,4 @@
-package com.hsuliz.backend.service;
+package com.hsuliz.backend.service.client;
 
 import com.hsuliz.backend.model.ClientDetails;
 import com.hsuliz.backend.repository.ClientRepository;

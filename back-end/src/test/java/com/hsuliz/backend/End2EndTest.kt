@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.hsuliz.backend.entity.Client
 import com.hsuliz.backend.model.LoginRequest
-import com.hsuliz.backend.repository.TestH2Repository
+import com.hsuliz.backend.repository.ClientRepository
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.*
 import org.springframework.beans.factory.annotation.Autowired
@@ -25,7 +25,7 @@ internal class End2EndTest {
     private var port: Int = 0
 
     @Autowired
-    private lateinit var h2Repository: TestH2Repository
+    private lateinit var clientRepository: ClientRepository
 
     private var baseUrl: String = "http://localhost"
 
@@ -33,20 +33,15 @@ internal class End2EndTest {
         .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
 
     companion object {
-
         private val givenLogin = LoginRequest("sasha", "password")
-
         private lateinit var restTemplate: RestTemplate
-
         private lateinit var accessToken: String
-
 
         @JvmStatic
         @BeforeAll
         fun beforeAll() {
             restTemplate = RestTemplate()
         }
-
     }
 
 
@@ -62,11 +57,12 @@ internal class End2EndTest {
         val responseFromRegister = restTemplate.postForEntity(
             "$baseUrl/auth/signup", givenLogin, String::class.java
         )
+        print("something")
 
         // then
         assertAll(
             { assertThat(responseFromRegister.statusCode.is2xxSuccessful).isTrue },
-            { assertThat(h2Repository.findAll().size).isEqualTo(2) }
+            { assertThat(clientRepository.findAll().size).isEqualTo(2) }
         )
     }
 

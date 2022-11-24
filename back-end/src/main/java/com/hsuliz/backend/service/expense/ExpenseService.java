@@ -1,7 +1,7 @@
-package com.hsuliz.backend.service;
+package com.hsuliz.backend.service.expense;
 
-import com.hsuliz.backend.repository.ExpenseRepository;
 import com.hsuliz.backend.entity.Expense;
+import com.hsuliz.backend.repository.ExpenseRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +15,7 @@ public class ExpenseService {
 
 
     public Expense getExpense(long id) {
-        return expenseRepository
-                .findById(id)
-                .orElseThrow(RuntimeException::new);
+        return expenseRepository.findById(id).orElseThrow(RuntimeException::new);
     }
 
     public List<Expense> getExpenses() {

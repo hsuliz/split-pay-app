@@ -1,7 +1,7 @@
 package com.hsuliz.backend.controller;
 
-import com.hsuliz.backend.service.ExpenseService;
 import com.hsuliz.backend.entity.Expense;
+import com.hsuliz.backend.service.expense.ExpenseService;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
