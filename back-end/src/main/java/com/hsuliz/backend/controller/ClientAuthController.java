@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 @Slf4j
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-public class AuthController {
+public class ClientAuthController {
 
     private final ClientAuthService clientAuthService;
 
