@@ -1,8 +1,9 @@
-package com.hsuliz.backend.service;
+package com.hsuliz.backend.service.client;
 
 import com.hsuliz.backend.entity.Client;
 import com.hsuliz.backend.model.LoginRequest;
 import com.hsuliz.backend.repository.ClientRepository;
+import com.hsuliz.backend.service.TokenService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,6 +24,7 @@ public class ClientAuthService {
     private final AuthenticationManager authenticationManager;
 
     private final PasswordEncoder passwordEncoder;
+
 
     public String authenticate(LoginRequest clientLogin) {
         Authentication authentication = authenticationManager

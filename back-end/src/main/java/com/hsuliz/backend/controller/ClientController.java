@@ -24,6 +24,7 @@ public class ClientController {
 
     private final ExpenseRepository expenseRepository;
 
+
     @GetMapping
     public Client getClientInfo(Principal principal) {
         return clientRepository.findByUsername(principal.getName()).get();
@@ -35,7 +36,6 @@ public class ClientController {
         val clientExpenses = expenseRepository.getExpenseByClient_Id(clientId);
         return clientExpenses.get();
     }
-
 
     @PostMapping("/expenses")
     public ResponseEntity<String> addExpense(@RequestBody Expense expense, Principal principal) {
