@@ -1,17 +1,10 @@
 spring:
-  jpa:
-    database: POSTGRESQL
-    show-sql: true
-    hibernate:
-      ddl-auto: create-drop
-  datasource:
-    url: jdbc:postgresql://localhost:5432/split_pay_db
-    username: postgres
-    password: mysecretpassword
-    driverClassName: org.postgresql.Driver
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+
+  profiles:
+    active: dev
 
 server:
   servlet:
