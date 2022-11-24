@@ -9,7 +9,10 @@ import {Container} from "react-bootstrap";
 
 const SigninPage: React.FC = () => {
 
+    
     const [authenticated, setAuthenticated] = useState<boolean>(false);
+
+    const [errorMessage, setErrorMessage] = useState<string>("");
 
     const initialValues: Login = {
         password: "", username: ""
@@ -29,6 +32,8 @@ const SigninPage: React.FC = () => {
                 setAuthenticated(true);
             })
             .catch((e: Error) => {
+                setAuthenticated(false);
+                setErrorMessage(e.message);
                 console.log(e);
             });
     };
@@ -83,6 +88,13 @@ const SigninPage: React.FC = () => {
                     </Formik>
                 </div>
             </div>
+            {errorMessage && (
+                <div className="form-group">
+                    <div className="alert alert-danger" role="alert">
+                        {errorMessage}
+                    </div>
+                </div>
+            )}
         </Container>
     );
 

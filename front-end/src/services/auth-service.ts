@@ -32,8 +32,8 @@ class AuthService {
     }
 
     getCurrentClientToken() {
-        const userStr = localStorage.getItem("token");
-        if (userStr) return userStr;
+        const token = localStorage.getItem("token");
+        if (token) return token;
 
         return null;
     }
