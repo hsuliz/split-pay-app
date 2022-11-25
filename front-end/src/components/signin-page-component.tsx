@@ -1,34 +1,27 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {ErrorMessage, Field, Form, Formik} from "formik";
-import authService from "../../services/auth-service";
-import AuthService from "../../services/auth-service";
-import {Login} from "../../types/login-type";
 import * as Yup from "yup";
-import InfoPage from "./info-page-component";
 import {Container} from "react-bootstrap";
+import {Login} from "../types/login-type";
+import AuthService from "../services/auth-service";
 
 const SigninPage: React.FC = () => {
 
-    const [authenticated, setAuthenticated] = useState<boolean>(false);
+    const [errorMessage, setErrorMessage] = useState<string>("");
 
     const initialValues: Login = {
         password: "", username: ""
     };
 
 
-    useEffect(() => {
-        const clientToken = authService.getCurrentClientToken();
-        if (clientToken) {
-            setAuthenticated(true);
-        }
-    }, []);
-
     const handleLogin = (data: Login) => {
         AuthService.login(data.username, data.password)
             .then(() => {
-                setAuthenticated(true);
+                window.location.reload();
             })
             .catch((e: Error) => {
+                AuthService.deleteCurrentClientToken()
+                setErrorMessage(e.message);
                 console.log(e);
             });
     };
@@ -40,10 +33,6 @@ const SigninPage: React.FC = () => {
         });
     };
 
-    if (authenticated) {
-        return <InfoPage/>
-    }
-
     return (
         <Container>
             <div className="col-md-12">
@@ -54,6 +43,7 @@ const SigninPage: React.FC = () => {
                         onSubmit={handleLogin}
                     >
                         <Form>
+                            <h1>Please log in</h1>
                             <div className="form-group">
                                 <label htmlFor="username">Username</label>
                                 <Field name="username" type="text" className="form-control"/>
@@ -73,7 +63,7 @@ const SigninPage: React.FC = () => {
                                     className="alert alert-danger"
                                 />
                             </div>
-
+                            <p></p>
                             <div className="form-group">
                                 <button type="submit" className="btn btn-primary btn-block">
                                     <span>Login</span>
@@ -83,6 +73,13 @@ const SigninPage: React.FC = () => {
                     </Formik>
                 </div>
             </div>
+            {errorMessage && (
+                <div className="form-group">
+                    <div className="alert alert-danger" role="alert">
+                        {errorMessage}
+                    </div>
+                </div>
+            )}
         </Container>
     );
 

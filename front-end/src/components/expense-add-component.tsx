@@ -4,10 +4,12 @@ import {Expense} from "../types/expense-type";
 import * as Yup from "yup";
 import ClientService from "../services/client-service";
 import {ErrorMessage, Field, Form, Formik} from "formik";
+import AuthService from "../services/auth-service";
 
 const ExpenseAdd = () => {
 
-    const initialValues: Expense = {name: "", price: ""}
+    const initialValues: Expense = {name: "", price: ""};
+
 
     const validationSchema = () => {
         return Yup.object().shape({
@@ -24,8 +26,9 @@ const ExpenseAdd = () => {
             })
             .catch((e: Error) => {
                 console.log(e);
-            })
-    }
+                AuthService.deleteCurrentClientToken();
+            });
+    };
 
     return (
         <Container>
@@ -37,6 +40,7 @@ const ExpenseAdd = () => {
                         onSubmit={onSubmit}
                     >
                         <Form>
+                            <h1>Type your expense</h1>
                             <div className="form-group">
                                 <label htmlFor="name">Expense</label>
                                 <Field name="name" type="text" className="form-control"/>
@@ -56,6 +60,7 @@ const ExpenseAdd = () => {
                                     className="alert alert-danger"
                                 />
                             </div>
+                            <p></p>
 
                             <div className="form-group">
                                 <button type="submit" className="btn btn-primary btn-block">
@@ -68,6 +73,7 @@ const ExpenseAdd = () => {
             </div>
         </Container>
     );
+
 };
 
 export default ExpenseAdd;

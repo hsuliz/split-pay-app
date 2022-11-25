@@ -1,21 +1,33 @@
-import {Link, Route, Routes} from "react-router-dom";
+import {Link, Navigate, Route, Routes} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import React from "react";
-import SigninPage from "./components/home/signin-page-component";
-import ExpensesListComponent from "./components/expenses-list-component";
-import ExpenseAddComponent from "./components/expense-add-component";
 import {Button} from "react-bootstrap";
 import AuthService from "./services/auth-service";
+import ClientInfoComponent from "./components/client-info-component";
+import SigninPage from "./components/signin-page-component";
+import ExpensesListComponent from "./components/expenses-list-component";
+import ExpenseAdd from "./components/expense-add-component";
 
 const App: React.FC = () => {
+
+    const PrivateRoute = ({children}: any) => {
+        const auth = AuthService.getCurrentClientToken();
+        if (auth && children.type.name == "SigninPage") {
+            return <Navigate to="/home"/>;
+        }
+        return auth ? children : <SigninPage/>;
+    };
+
     return (
         <div>
             <nav className="navbar navbar-expand navbar-dark bg-dark">
                 <div className="navbar-nav mr-auto">
-                    <a href="/" className="navbar-brand">
-                        HomePage
-                    </a>
+                    <li className="nav-item">
+                        <Link to={"/home"} className="nav-link">
+                            Home page
+                        </Link>
+                    </li>
                     <li className="nav-item">
                         <Link to={"/list"} className="nav-link">
                             Expenses
@@ -35,13 +47,51 @@ const App: React.FC = () => {
             </nav>
             <div className="container mt-3">
                 <Routes>
-                    <Route path="/" element={<SigninPage/>}/>
-                    <Route path="/list" element={<ExpensesListComponent/>}/>
-                    <Route path="/add" element={<ExpenseAddComponent/>}/>
+                    <Route
+                        path="/"
+                        element={
+                            <PrivateRoute>
+                                <ClientInfoComponent/>
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/home"
+                        element={
+                            <PrivateRoute>
+                                <ClientInfoComponent/>
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/list"
+                        element={
+                            <PrivateRoute>
+                                <ExpensesListComponent/>
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/add"
+                        element={
+                            <PrivateRoute>
+                                <ExpenseAdd/>
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/login"
+                        element={
+                            <PrivateRoute>
+                                <SigninPage/>
+                            </PrivateRoute>
+                        }
+                    />
                 </Routes>
             </div>
         </div>
     );
-}
+
+};
 
 export default App;

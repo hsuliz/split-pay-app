@@ -31,15 +31,14 @@ public class ClientAuthService {
                 .authenticate(new UsernamePasswordAuthenticationToken(
                         clientLogin.username(),
                         clientLogin.password()));
-        log.info("Access granted!!");
         return tokenService.generateToken(authentication);
     }
 
     public String register(LoginRequest userLogin) {
-        String encodedPass = passwordEncoder.encode(userLogin.password());
+        String encodedPassword = passwordEncoder.encode(userLogin.password());
         var client = new Client(
                 userLogin.username(),
-                encodedPass
+                encodedPassword
         );
         clientRepository.save(client);
         return "User created!!";
