@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {ClientType} from "../types/client-type";
 import ClientService from "../services/client-service";
+import {Container} from "react-bootstrap";
 
 const ClientInfoComponent = () => {
 
@@ -17,9 +18,11 @@ const ClientInfoComponent = () => {
     }, []);
 
     return (
-        <div>
-            2323
-        </div>
+        <Container>
+            <h1 className="text-center"> Client info </h1>
+            <h2>{client?.username}</h2>
+            <h2>{client?.id}</h2>
+        </Container>
     );
 
 };
