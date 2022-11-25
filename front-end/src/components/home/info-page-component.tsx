@@ -6,6 +6,7 @@ const InfoPage = () => {
 
     const [client, setClient] = useState<ClientType>();
 
+
     useEffect(() => {
         ClientService.getClientInfo()
             .then((response) => {

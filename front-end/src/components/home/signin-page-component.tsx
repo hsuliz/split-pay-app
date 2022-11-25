@@ -1,15 +1,14 @@
 import React, {useEffect, useState} from "react";
 import {ErrorMessage, Field, Form, Formik} from "formik";
-import authService from "../../services/auth-service";
 import AuthService from "../../services/auth-service";
 import {Login} from "../../types/login-type";
 import * as Yup from "yup";
 import InfoPage from "./info-page-component";
 import {Container} from "react-bootstrap";
+import ClientService from "../../services/client-service";
 
 const SigninPage: React.FC = () => {
 
-    
     const [authenticated, setAuthenticated] = useState<boolean>(false);
 
     const [errorMessage, setErrorMessage] = useState<string>("");
@@ -20,10 +19,10 @@ const SigninPage: React.FC = () => {
 
 
     useEffect(() => {
-        const clientToken = authService.getCurrentClientToken();
-        if (clientToken) {
-            setAuthenticated(true);
-        }
+        ClientService.getClientInfo()
+            .then(() => {
+                setAuthenticated(true)
+            })
     }, []);
 
     const handleLogin = (data: Login) => {

@@ -28,18 +28,6 @@ class ClientService {
         )
     }
 
-    isLogged(): boolean {
-        let isLogged = true;
-        axios.get(
-            API_URL,
-            {headers: authHeader()}
-        )
-            .catch(() => {
-                isLogged = false;
-            })
-        return isLogged;
-    }
-
 }
 
 export default new ClientService();
