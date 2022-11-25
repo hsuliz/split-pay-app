@@ -12,8 +12,7 @@ import ExpenseAdd from "./components/expense-add-component";
 const App: React.FC = () => {
 
     const PrivateRoute = ({children}: any) => {
-        /*#TODO implement this thing*/
-        const auth = false;
+        const auth = AuthService.getCurrentClientToken();
         if (auth && children.type.name == "SigninPage") {
             return <Navigate to="/home"/>;
         }

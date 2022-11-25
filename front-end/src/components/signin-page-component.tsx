@@ -15,6 +15,9 @@ const SigninPage: React.FC = () => {
 
     const handleLogin = (data: Login) => {
         AuthService.login(data.username, data.password)
+            .then(() => {
+                window.location.reload();
+            })
             .catch((e: Error) => {
                 setErrorMessage(e.message);
                 console.log(e);
@@ -27,6 +30,8 @@ const SigninPage: React.FC = () => {
             password: Yup.string().required("This field is required!!")
         });
     };
+
+    const good = AuthService.getCurrentClientToken()
 
     return (
         <Container>
