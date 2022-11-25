@@ -2,11 +2,12 @@ import {Link, Route, Routes} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import React from "react";
-import SigninPage from "./components/home/signin-page-component";
-import ExpensesListComponent from "./components/expenses-list-component";
-import ExpenseAddComponent from "./components/expense-add-component";
 import {Button} from "react-bootstrap";
 import AuthService from "./services/auth-service";
+import ClientInfoComponent from "./components/client-info-component";
+import SigninPage from "./components/signin-page-component";
+import ExpensesListComponent from "./components/expenses-list-component";
+import ExpenseAdd from "./components/expense-add-component";
 
 const App: React.FC = () => {
     return (
@@ -35,13 +36,16 @@ const App: React.FC = () => {
             </nav>
             <div className="container mt-3">
                 <Routes>
-                    <Route path="/" element={<SigninPage/>}/>
+
+                    <Route path="/" element={<ClientInfoComponent/>}/>
+                    <Route path="/add" element={<ExpenseAdd/>}/>
                     <Route path="/list" element={<ExpensesListComponent/>}/>
-                    <Route path="/add" element={<ExpenseAddComponent/>}/>
+                    <Route path="/login" element={<SigninPage/>}/>
                 </Routes>
             </div>
         </div>
     );
-}
+
+};
 
 export default App;

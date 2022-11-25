@@ -5,23 +5,14 @@ import ClientService from "../services/client-service";
 
 const ExpensesList: React.FC = () => {
 
-    const [authenticated, setAuthenticated] = useState<boolean>(false);
-
     const [expenses, setExpenses] = useState<Array<Expense>>([])
 
     useEffect(() => {
         ClientService.getClientExpenses()
             .then((response) => {
                 setExpenses(response.data);
-                setAuthenticated(true)
             })
     }, []);
-
-    if (!authenticated) {
-        return (
-            <h1 className="text-center"> No auth</h1>
-        )
-    }
 
     return (
         <Container>

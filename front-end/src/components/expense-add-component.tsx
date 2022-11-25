@@ -1,5 +1,5 @@
 import {Container} from "react-bootstrap";
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {Expense} from "../types/expense-type";
 import * as Yup from "yup";
 import ClientService from "../services/client-service";
@@ -7,16 +7,7 @@ import {ErrorMessage, Field, Form, Formik} from "formik";
 
 const ExpenseAdd = () => {
 
-    const [authenticated, setAuthenticated] = useState<boolean>(false);
-
     const initialValues: Expense = {name: "", price: ""}
-
-    useEffect(() => {
-        ClientService.getClientExpenses()
-            .then((response) => {
-                setAuthenticated(true)
-            })
-    }, []);
 
     const validationSchema = () => {
         return Yup.object().shape({
@@ -34,12 +25,6 @@ const ExpenseAdd = () => {
             .catch((e: Error) => {
                 console.log(e);
             })
-    }
-
-    if (!authenticated) {
-        return (
-            <h1 className="text-center"> No auth </h1>
-        )
     }
 
     return (

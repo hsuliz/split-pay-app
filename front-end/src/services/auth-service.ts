@@ -20,6 +20,7 @@ class AuthService {
 
     logout() {
         localStorage.removeItem("token");
+        window.location.reload();
     }
 
     // #TODO
