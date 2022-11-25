@@ -16,12 +16,12 @@ class AuthService {
                 }
                 return response.data;
             });
-    }
+    };
 
     logout() {
         localStorage.removeItem("token");
         window.location.reload();
-    }
+    };
 
     // #TODO
     register(username: string, email: string, password: string) {
@@ -30,7 +30,7 @@ class AuthService {
             email,
             password
         });
-    }
+    };
 
     getCurrentClientToken() {
         const token = localStorage.getItem("token");
@@ -38,7 +38,11 @@ class AuthService {
             return token;
         }
         return null;
-    }
+    };
+
+    deleteCurrentClientToken() {
+        localStorage.clear();
+    };
 
 }
 

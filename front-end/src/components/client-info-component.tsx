@@ -7,6 +7,7 @@ const ClientInfoComponent = () => {
 
     const [client, setClient] = useState<ClientType>();
 
+
     useEffect(() => {
         ClientService.getClientInfo()
             .then((response) => {
@@ -20,8 +21,7 @@ const ClientInfoComponent = () => {
     return (
         <Container>
             <h1 className="text-center"> Client info </h1>
-            <h2>{client?.username}</h2>
-            <h2>{client?.id}</h2>
+            <h2>Hello, {client?.username}</h2>
         </Container>
     );
 

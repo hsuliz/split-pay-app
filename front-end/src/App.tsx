@@ -16,7 +16,7 @@ const App: React.FC = () => {
         if (auth && children.type.name == "SigninPage") {
             return <Navigate to="/home"/>;
         }
-        return auth ? children : <SigninPage/>
+        return auth ? children : <SigninPage/>;
     };
 
     return (
@@ -47,6 +47,14 @@ const App: React.FC = () => {
             </nav>
             <div className="container mt-3">
                 <Routes>
+                    <Route
+                        path="/"
+                        element={
+                            <PrivateRoute>
+                                <ClientInfoComponent/>
+                            </PrivateRoute>
+                        }
+                    />
                     <Route
                         path="/home"
                         element={
@@ -83,6 +91,7 @@ const App: React.FC = () => {
             </div>
         </div>
     );
+
 };
 
 export default App;

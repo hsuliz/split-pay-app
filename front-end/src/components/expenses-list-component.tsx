@@ -2,17 +2,29 @@ import React, {useEffect, useState} from "react";
 import {Container, Table} from "react-bootstrap";
 import {Expense} from "../types/expense-type";
 import ClientService from "../services/client-service";
+import AuthService from "../services/auth-service";
 
 const ExpensesList: React.FC = () => {
 
-    const [expenses, setExpenses] = useState<Array<Expense>>([])
+    const [expenses, setExpenses] = useState<Array<Expense>>([]);
+
+    const [isError, setIsError] = useState<boolean>(false);
+
 
     useEffect(() => {
         ClientService.getClientExpenses()
             .then((response) => {
                 setExpenses(response.data);
             })
+            .catch(() => {
+                AuthService.deleteCurrentClientToken()
+                setIsError(true)
+            })
     }, []);
+
+    if (isError) {
+        window.location.reload();
+    }
 
     return (
         <Container>
@@ -35,8 +47,8 @@ const ExpensesList: React.FC = () => {
                 </Table>
             </Container>
         </Container>
-    )
+    );
 
-}
+};
 
 export default ExpensesList;

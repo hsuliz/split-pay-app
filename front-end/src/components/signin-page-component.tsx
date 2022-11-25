@@ -13,15 +13,17 @@ const SigninPage: React.FC = () => {
         password: "", username: ""
     };
 
+
     const handleLogin = (data: Login) => {
         AuthService.login(data.username, data.password)
             .then(() => {
                 window.location.reload();
             })
             .catch((e: Error) => {
+                AuthService.deleteCurrentClientToken()
                 setErrorMessage(e.message);
                 console.log(e);
-            })
+            });
     };
 
     const validationSchema = () => {
@@ -30,8 +32,6 @@ const SigninPage: React.FC = () => {
             password: Yup.string().required("This field is required!!")
         });
     };
-
-    const good = AuthService.getCurrentClientToken()
 
     return (
         <Container>
@@ -43,6 +43,7 @@ const SigninPage: React.FC = () => {
                         onSubmit={handleLogin}
                     >
                         <Form>
+                            <h1>Please log in</h1>
                             <div className="form-group">
                                 <label htmlFor="username">Username</label>
                                 <Field name="username" type="text" className="form-control"/>
@@ -62,7 +63,7 @@ const SigninPage: React.FC = () => {
                                     className="alert alert-danger"
                                 />
                             </div>
-
+                            <p></p>
                             <div className="form-group">
                                 <button type="submit" className="btn btn-primary btn-block">
                                     <span>Login</span>

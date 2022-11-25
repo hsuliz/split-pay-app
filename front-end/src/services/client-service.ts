@@ -11,22 +11,22 @@ class ClientService {
             API_URL,
             {headers: authHeader()}
         );
-    }
+    };
 
     getClientExpenses() {
         return axios.get(
             API_URL + "/expenses",
             {headers: authHeader()}
         );
-    }
+    };
 
     postClientExpense(expense: Expense) {
         return axios.post(
             API_URL + "/expenses",
             expense,
             {headers: authHeader()}
-        )
-    }
+        );
+    };
 
 }
 
