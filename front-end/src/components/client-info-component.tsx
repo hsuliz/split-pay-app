@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {Client} from "../types/client";
+import {ClientType} from "../types/client-type";
 import ClientService from "../services/client-service";
 import {Container} from "react-bootstrap";
 
 const ClientInfoComponent = () => {
 
-    const [client, setClient] = useState<Client>();
+    const [client, setClient] = useState<ClientType>();
 
 
     useEffect(() => {
