@@ -7,7 +7,9 @@ import AuthService from "../services/auth-service";
 
 const SigninPage: React.FC = () => {
 
-    const [errorMessage, setErrorMessage] = useState<string>("");
+    const [logInMessage, setLogInMessage] = useState<string>("");
+
+    const [signUpMessage, setSignUpMessage] = useState<string>("");
 
     const initialValues: Login = {
         password: "", username: ""
@@ -21,8 +23,18 @@ const SigninPage: React.FC = () => {
             })
             .catch((e: Error) => {
                 AuthService.deleteCurrentClientToken()
-                setErrorMessage(e.message);
+                setLogInMessage(e.message);
                 console.log(e);
+            });
+    };
+
+    const handleCreate = (data: Login) => {
+        AuthService.register(data.username, data.password)
+            .then(() => {
+                setSignUpMessage("Account created!!")
+            })
+            .catch((e: Error) => {
+                setSignUpMessage(e.message);
             });
     };
 
@@ -34,52 +46,101 @@ const SigninPage: React.FC = () => {
     };
 
     return (
-        <Container>
-            <div className="col-md-12">
-                <div className="card card-container">
-                    <Formik
-                        initialValues={initialValues}
-                        validationSchema={validationSchema}
-                        onSubmit={handleLogin}
-                    >
-                        <Form>
-                            <h1>Please log in</h1>
-                            <div className="form-group">
-                                <label htmlFor="username">Username</label>
-                                <Field name="username" type="text" className="form-control"/>
-                                <ErrorMessage
-                                    name="username"
-                                    component="div"
-                                    className="alert alert-danger"
-                                />
-                            </div>
+        <Container className="row-cols-12">
+            <Container>
+                <div className="col-md-12">
+                    <div className="card card-container">
+                        <Formik
+                            initialValues={initialValues}
+                            validationSchema={validationSchema}
+                            onSubmit={handleLogin}
+                        >
+                            <Form>
+                                <h1>Log in</h1>
+                                <div className="form-group">
+                                    <label htmlFor="username">Username</label>
+                                    <Field name="username" type="text" className="form-control"/>
+                                    <ErrorMessage
+                                        name="username"
+                                        component="div"
+                                        className="alert alert-danger"
+                                    />
+                                </div>
 
-                            <div className="form-group">
-                                <label htmlFor="password">Password</label>
-                                <Field name="password" type="password" className="form-control"/>
-                                <ErrorMessage
-                                    name="password"
-                                    component="div"
-                                    className="alert alert-danger"
-                                />
-                            </div>
-                            <p></p>
-                            <div className="form-group">
-                                <button type="submit" className="btn btn-primary btn-block">
-                                    <span>Login</span>
-                                </button>
-                            </div>
-                        </Form>
-                    </Formik>
-                </div>
-            </div>
-            {errorMessage && (
-                <div className="form-group">
-                    <div className="alert alert-danger" role="alert">
-                        {errorMessage}
+                                <div className="form-group">
+                                    <label htmlFor="password">Password</label>
+                                    <Field name="password" type="password" className="form-control"/>
+                                    <ErrorMessage
+                                        name="password"
+                                        component="div"
+                                        className="alert alert-danger"
+                                    />
+                                </div>
+                                <p></p>
+                                <div className="form-group">
+                                    <button type="submit" className="btn btn-primary btn-block">
+                                        <span>Login</span>
+                                    </button>
+                                </div>
+                            </Form>
+                        </Formik>
                     </div>
                 </div>
-            )}
+                {logInMessage && (
+                    <div className="form-group">
+                        <div className="alert alert-danger" role="alert">
+                            {logInMessage}
+                        </div>
+                    </div>
+                )}
+            </Container>
+            <Container>
+                <div className="col-md-12">
+                    <div className="card card-container">
+                        <Formik
+                            initialValues={initialValues}
+                            validationSchema={validationSchema}
+                            onSubmit={handleCreate}
+                        >
+                            <Form>
+                                <h1>Create a account</h1>
+                                <div className="form-group">
+                                    <label htmlFor="username">Username</label>
+                                    <Field name="username" type="text" className="form-control"/>
+                                    <ErrorMessage
+                                        name="username"
+                                        component="div"
+                                        className="alert alert-danger"
+                                    />
+                                </div>
+
+                                <div className="form-group">
+                                    <label htmlFor="password">Password</label>
+                                    <Field name="password" type="password" className="form-control"/>
+                                    <ErrorMessage
+                                        name="password"
+                                        component="div"
+                                        className="alert alert-danger"
+                                    />
+                                </div>
+                                <p></p>
+                                <div className="form-group">
+                                    <button type="submit" className="btn btn-primary btn-block">
+                                        <span>Create</span>
+                                    </button>
+                                </div>
+                            </Form>
+                        </Formik>
+                    </div>
+                </div>
+                {signUpMessage && (
+                    <div className="form-group">
+                        <div className="alert alert-danger" role="alert">
+                            {signUpMessage}
+                        </div>
+                    </div>
+                )}
+            </Container>
         </Container>
     );
 
