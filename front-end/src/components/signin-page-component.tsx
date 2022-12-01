@@ -103,7 +103,7 @@ const SigninPage: React.FC = () => {
                             onSubmit={handleCreate}
                         >
                             <Form>
-                                <h1>Create a account</h1>
+                                <h1>Create an account</h1>
                                 <div className="form-group">
                                     <label htmlFor="username">Username</label>
                                     <Field name="username" type="text" className="form-control"/>
