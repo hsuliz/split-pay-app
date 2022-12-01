@@ -1,4 +1,4 @@
-export type ClientType = {
+export type Client = {
     id: string,
     username?: string,
     password?: string

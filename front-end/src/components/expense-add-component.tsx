@@ -1,5 +1,5 @@
 import {Container} from "react-bootstrap";
-import React from "react";
+import React, {useState} from "react";
 import {Expense} from "../types/expense-type";
 import * as Yup from "yup";
 import ClientService from "../services/client-service";
@@ -8,7 +8,8 @@ import AuthService from "../services/auth-service";
 
 const ExpenseAdd = () => {
 
-    const initialValues: Expense = {name: "", price: ""};
+    let initialValues: Expense = {name: "", price: ""};
+    const [message, setMessage] = useState<string>("");
 
 
     const validationSchema = () => {
@@ -21,11 +22,11 @@ const ExpenseAdd = () => {
     const onSubmit = (expense: Expense) => {
         console.log(expense);
         ClientService.postClientExpense(expense)
-            .then((r: any) => {
-                console.log(r);
+            .then(() => {
+                setMessage(`Expense ${expense.name} with price ${expense.price} was added!!`);
             })
             .catch((e: Error) => {
-                console.log(e);
+                setMessage(e.message);
                 AuthService.deleteCurrentClientToken();
             });
     };
@@ -37,7 +38,10 @@ const ExpenseAdd = () => {
                     <Formik
                         initialValues={initialValues}
                         validationSchema={validationSchema}
-                        onSubmit={onSubmit}
+                        onSubmit={(values, {resetForm}) => {
+                            onSubmit(values)
+                            resetForm();
+                        }}
                     >
                         <Form>
                             <h1>Type your expense</h1>
@@ -71,6 +75,13 @@ const ExpenseAdd = () => {
                     </Formik>
                 </div>
             </div>
+            {message && (
+                <div className="form-group">
+                    <div className="alert alert-info" role="alert">
+                        {message}
+                    </div>
+                </div>
+            )}
         </Container>
     );
 
