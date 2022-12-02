@@ -88,7 +88,7 @@ const SigninPage: React.FC = () => {
                 </div>
                 {logInMessage && (
                     <div className="form-group">
-                        <div className="alert alert-danger" role="alert">
+                        <div className="alert alert-info" role="alert">
                             {logInMessage}
                         </div>
                     </div>
@@ -100,7 +100,10 @@ const SigninPage: React.FC = () => {
                         <Formik
                             initialValues={initialValues}
                             validationSchema={validationSchema}
-                            onSubmit={handleCreate}
+                            onSubmit={(values, {resetForm}) => {
+                                handleCreate(values)
+                                resetForm();
+                            }}
                         >
                             <Form>
                                 <h1>Create an account</h1>
@@ -135,7 +138,7 @@ const SigninPage: React.FC = () => {
                 </div>
                 {signUpMessage && (
                     <div className="form-group">
-                        <div className="alert alert-danger" role="alert">
+                        <div className="alert alert-info" role="alert">
                             {signUpMessage}
                         </div>
                     </div>
