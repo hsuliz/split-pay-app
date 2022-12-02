@@ -28,7 +28,7 @@ const ExpensesList: React.FC = () => {
 
     return (
         <Container>
-            <h2 className="text-center">Expense list</h2>
+            <h1 className="text-center">Expense list</h1>
             <Container>
                 <Table>
                     <thead>
